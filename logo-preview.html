@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Службова сторінка для вибору логотипу. Її немає в меню і пошуковикам вона не потрібна. -->
+  <meta name="robots" content="noindex">
+  <title>Вибір логотипу — Second Visuals</title>
+  <meta name="theme-color" content="#15111F">
+  <link rel="icon" href="assets/logo/logo-1.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- Стилі лише для цієї сторінки -->
+  <style>
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .logo-card {
+      display: grid;
+      gap: 22px;
+      padding: 28px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .logo-card.is-current {
+      border: 2px solid var(--color-accent);
+    }
+
+    .logo-card .eyebrow + h2 {
+      margin-top: 12px;
+    }
+
+    .logo-card h2 {
+      font-size: 1.4rem;
+    }
+
+    .logo-card code {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Великий логотип */
+    .logo-big {
+      width: 160px;
+      height: 160px;
+      border-radius: 0;
+      margin-inline: auto;
+    }
+
+    /* Ряд малих розмірів: на темному і на світлому фоні */
+    .sizes {
+      display: flex;
+      align-items: flex-end;
+      gap: 18px;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      background: var(--color-bg);
+    }
+
+    .sizes--light {
+      background: var(--color-text);
+    }
+
+    .sizes figure {
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+    }
+
+    .sizes img {
+      border-radius: 0;
+    }
+
+    .sizes figcaption {
+      font-size: 0.75rem;
+      color: var(--color-text-faint);
+    }
+
+    .sizes--light figcaption {
+      color: rgba(21, 17, 31, 0.55);
+    }
+
+    /* Імітація вкладки браузера */
+    .tab-mock {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      background: var(--color-surface-2);
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+    }
+
+    .tab-mock img {
+      width: 16px;
+      height: 16px;
+      border-radius: 0;
+    }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Службова сторінка</span>
+        <h1>Вибір <span class="accent">логотипу</span></h1>
+        <p>Три варіанти поруч: великий, малий, у меню і як іконка вкладки. Зараз на сайті стоїть варіант 1 «Подвійний погляд».</p>
+      </div>
+    </section>
+
+    <section class="section section--tight-top">
+      <div class="container logo-grid">
+
+        <!-- ===== Варіант 1 ===== -->
+        <article class="logo-card is-current">
+          <div>
+            <span class="eyebrow">Зараз на сайті</span>
+            <h2>1. Подвійний погляд</h2>
+            <p>Око — «Visuals». Його м'ятне відлуння, зміщене по діагоналі, — «Second». Зіниця — піксель із відблиском.</p>
+          </div>
+          <img class="logo-big" src="assets/logo/logo-1.svg" alt="Логотип, варіант 1" width="160" height="160">
+          <div class="sizes">
+            <figure><img src="assets/logo/logo-1.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
+            <figure><img src="assets/logo/logo-1.svg" alt="" width="36" height="36"><figcaption>36 (меню)</figcaption></figure>
+            <figure><img src="assets/logo/logo-1.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
+            <figure><img src="assets/logo/logo-1.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
+          </div>
+          <div class="sizes sizes--light">
+            <figure><img src="assets/logo/logo-1.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
+            <figure><img src="assets/logo/logo-1.svg" alt="" width="36" height="36"><figcaption>36</figcaption></figure>
+            <figure><img src="assets/logo/logo-1.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
+            <figure><img src="assets/logo/logo-1.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
+          </div>
+          <div>
+            <span class="logo"><img src="assets/logo/logo-1.svg" alt="" width="36" height="36">Second Visuals</span>
+          </div>
+          <div><span class="tab-mock"><img src="assets/logo/logo-1.svg" alt="">Second Visuals — візуальний…</span></div>
+          <code>assets/logo/logo-1.svg</code>
+        </article>
+
+        <!-- ===== Варіант 2 ===== -->
+        <article class="logo-card">
+          <div>
+            <h2>2. Кадр і другий шар</h2>
+            <p>Світла рамка — кадр («Visuals»). Позаду м'ятний шар, зміщений, як другий кадр («Second»). Піксель у кутку — світло.</p>
+          </div>
+          <img class="logo-big" src="assets/logo/logo-2.svg" alt="Логотип, варіант 2" width="160" height="160">
+          <div class="sizes">
+            <figure><img src="assets/logo/logo-2.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
+            <figure><img src="assets/logo/logo-2.svg" alt="" width="36" height="36"><figcaption>36 (меню)</figcaption></figure>
+            <figure><img src="assets/logo/logo-2.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
+            <figure><img src="assets/logo/logo-2.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
+          </div>
+          <div class="sizes sizes--light">
+            <figure><img src="assets/logo/logo-2.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
+            <figure><img src="assets/logo/logo-2.svg" alt="" width="36" height="36"><figcaption>36</figcaption></figure>
+            <figure><img src="assets/logo/logo-2.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
+            <figure><img src="assets/logo/logo-2.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
+          </div>
+          <div>
+            <span class="logo"><img src="assets/logo/logo-2.svg" alt="" width="36" height="36">Second Visuals</span>
+          </div>
+          <div><span class="tab-mock"><img src="assets/logo/logo-2.svg" alt="">Second Visuals — візуальний…</span></div>
+          <code>assets/logo/logo-2.svg</code>
+        </article>
+
+        <!-- ===== Варіант 3 ===== -->
+        <article class="logo-card">
+          <div>
+            <h2>3. Піксельна S із тінню</h2>
+            <p>Кутаста «піксельна» S, як у шрифтах Minecraft, із закругленими кутами. Позаду — її м'ятна копія, зміщена по діагоналі: «друга» S.</p>
+          </div>
+          <img class="logo-big" src="assets/logo/logo-3.svg" alt="Логотип, варіант 3" width="160" height="160">
+          <div class="sizes">
+            <figure><img src="assets/logo/logo-3.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
+            <figure><img src="assets/logo/logo-3.svg" alt="" width="36" height="36"><figcaption>36 (меню)</figcaption></figure>
+            <figure><img src="assets/logo/logo-3.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
+            <figure><img src="assets/logo/logo-3.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
+          </div>
+          <div class="sizes sizes--light">
+            <figure><img src="assets/logo/logo-3.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
+            <figure><img src="assets/logo/logo-3.svg" alt="" width="36" height="36"><figcaption>36</figcaption></figure>
+            <figure><img src="assets/logo/logo-3.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
+            <figure><img src="assets/logo/logo-3.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
+          </div>
+          <div>
+            <span class="logo"><img src="assets/logo/logo-3.svg" alt="" width="36" height="36">Second Visuals</span>
+          </div>
+          <div><span class="tab-mock"><img src="assets/logo/logo-3.svg" alt="">Second Visuals — візуальний…</span></div>
+          <code>assets/logo/logo-3.svg</code>
+        </article>
+
+      </div>
+
+      <div class="container">
+        <a class="more-link" href="index.html"><span aria-hidden="true">←</span> На головну</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

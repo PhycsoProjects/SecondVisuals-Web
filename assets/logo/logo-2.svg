@@ -1,0 +1,12 @@
+<!-- Second Visuals — логотип 2 «Кадр і другий шар».
+     Світла рамка — кадр (Visuals). Позаду — м'ятний шар, зміщений по діагоналі,
+     як другий кадр або тінь (Second). Маленький піксель у кутку — «світло» в кадрі. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="18" fill="#15111F"/>
+  <!-- другий шар (м'ятний) -->
+  <rect x="24" y="24" width="30" height="30" rx="9" fill="#5EE6C8"/>
+  <!-- кадр (рамка) -->
+  <rect x="13" y="13" width="27" height="27" rx="8" fill="none" stroke="#F3E9E1" stroke-width="6"/>
+  <!-- піксель світла -->
+  <rect x="44" y="15" width="7" height="7" rx="2.2" fill="#F3E9E1"/>
+</svg>

@@ -1,0 +1,14 @@
+<!-- Second Visuals — логотип 1 «Подвійний погляд».
+     Око (Visuals) і його м'ятне відлуння, зміщене по діагоналі (Second).
+     Зіниця — квадратний закруглений піксель із відблиском світла. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="18" fill="#15111F"/>
+  <!-- друге око (відлуння), зміщене вправо-вниз -->
+  <path d="M10 36 C19 22 45 22 58 36 C45 50 19 50 10 36 Z" fill="#5EE6C8" stroke="#5EE6C8" stroke-width="3" stroke-linejoin="round"/>
+  <!-- основне око -->
+  <path d="M6 30 C15 16 41 16 54 30 C41 44 15 44 6 30 Z" fill="#F3E9E1" stroke="#F3E9E1" stroke-width="3" stroke-linejoin="round"/>
+  <!-- зіниця-піксель -->
+  <rect x="22" y="22" width="16" height="16" rx="5" fill="#15111F"/>
+  <!-- відблиск -->
+  <rect x="25.5" y="25.5" width="5" height="5" rx="1.8" fill="#F3E9E1"/>
+</svg>

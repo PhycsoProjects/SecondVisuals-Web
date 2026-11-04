@@ -57,8 +57,24 @@
 .site-header__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  gap: 12px;
+}
+
+/* Порядок у шапці: логотип → меню → кнопка акаунта → бургер (на телефоні) */
+.site-header__inner .logo {
+  margin-right: auto;
+}
+
+.site-header__inner .nav {
+  order: 1;
+}
+
+.site-header__inner .account-btn {
+  order: 2;
+}
+
+.site-header__inner .nav-toggle {
+  order: 3;
 }
 
 /* Логотип: значок + назва */

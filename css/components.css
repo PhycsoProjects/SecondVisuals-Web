@@ -216,40 +216,25 @@
     center / 20px no-repeat;
 }
 
-/* =========================================================
-   ПЕРЕМИКАЧ "Місяць / Рік" (сторінка тарифів)
-   ========================================================= */
-.billing-toggle {
-  display: inline-flex;
-  padding: 6px;
-  margin-bottom: 40px;
-  border-radius: var(--radius-full);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-}
-
-.billing-toggle__btn {
-  padding: 10px 22px;
-  border-radius: var(--radius-full);
-  color: var(--color-text-muted);
-  font-family: var(--font-heading);
-  font-weight: 800;
-  transition: background-color var(--transition), color var(--transition);
-}
-
-.billing-toggle__btn[aria-pressed="true"] {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-}
-
-/* Дрібна мітка "-20%" усередині кнопки */
-.billing-toggle__save {
-  font-size: 0.8em;
-  opacity: 0.8;
-}
-
 .pricing-center {
   text-align: center;
+}
+
+/* Рядок «Слідкуй за новинами в Telegram і TikTok» під тарифами */
+.pricing-news {
+  margin-top: 36px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.pricing-news a {
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pricing-news + .more-link {
+  margin-top: 12px;
 }
 
 /* =========================================================
@@ -257,16 +242,23 @@
    ========================================================= */
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* три тарифи в ряд */
   gap: 24px;
-  max-width: 900px;
+  max-width: 1100px;
+  padding-top: 16px; /* місце для позначки над карткою */
   margin-inline: auto;
   text-align: left;
 }
 
-@media (max-width: 760px) {
+/* На планшеті й телефоні — один тариф під одним */
+@media (max-width: 980px) {
   .pricing-grid {
     grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+
+  .plan + .plan {
+    margin-top: 8px;
   }
 }
 
@@ -291,13 +283,14 @@
   position: absolute;
   top: -14px;
   right: 28px;
-  padding: 5px 14px;
+  padding: 7px 16px;
   border-radius: var(--radius-full);
   background: var(--color-accent);
   color: var(--color-on-accent);
   font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 0.8rem;
+  font-weight: 900;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 24px -8px var(--color-accent-glow);
 }
 
 .plan__name {
@@ -337,14 +330,14 @@
 .plan .check-list {
   margin-block: 28px 32px;
   flex: 1; /* список розтягується, щоб кнопки були на одному рівні */
+  align-content: start; /* а пункти лишаються зверху, без великих проміжків */
 }
 
-/* Підказка під неактивною кнопкою оплати */
-.plan__hint {
-  margin-top: 12px;
-  font-size: 0.88rem;
-  text-align: center;
-  color: var(--color-text-faint);
+/* На компі опис тарифу однакової висоти — щоб ціни стояли на одному рівні */
+@media (min-width: 981px) {
+  .plan__desc {
+    min-height: 3.3em;
+  }
 }
 
 /* =========================================================
@@ -690,4 +683,187 @@
   .stats {
     grid-template-columns: 1fr;
   }
+}
+
+/* =========================================================
+   КНОПКА АКАУНТА В МЕНЮ (відкриває вікно входу, див. js/auth.js)
+   ========================================================= */
+.account-btn {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.account-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.account-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Перша літера імені — видно тільки, коли увійшли */
+.account-btn__letter {
+  display: none;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.account-btn.is-signed-in {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-color: var(--color-accent);
+}
+
+.account-btn.is-signed-in svg {
+  display: none;
+}
+
+.account-btn.is-signed-in .account-btn__letter {
+  display: block;
+}
+
+/* =========================================================
+   ВІКНО «ВХІД / РЕЄСТРАЦІЯ» (<dialog>, створюється в js/auth.js)
+   ========================================================= */
+.auth-dialog {
+  width: min(440px, calc(100% - 32px));
+  margin: auto;
+  padding: 36px 28px 28px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.8);
+}
+
+/* Затемнений фон за вікном */
+.auth-dialog::backdrop {
+  background: rgba(21, 17, 31, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.auth-dialog[open] {
+  animation: dialog-in 0.2s ease;
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+/* Кнопка-хрестик у кутку */
+.auth-dialog__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.auth-dialog__close:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+.auth-dialog__title {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+  padding-right: 32px;
+}
+
+.auth-dialog__text {
+  margin-bottom: 24px;
+}
+
+.auth-dialog__text strong {
+  color: var(--color-text);
+}
+
+.auth-dialog__msg:empty {
+  display: none;
+}
+
+.auth-dialog__msg {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  color: var(--color-text);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+/* Кнопки входу через Google / Microsoft */
+.auth-providers {
+  display: grid;
+  gap: 12px;
+}
+
+.provider-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 54px;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-weight: 700;
+  text-align: left;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.provider-btn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.provider-btn img {
+  width: 22px;
+  height: 22px;
+  border-radius: 0;
+}
+
+/* Неактивна кнопка (Microsoft) — сіра */
+.provider-btn:disabled {
+  cursor: not-allowed;
+  color: var(--color-text-faint);
+  background: transparent;
+}
+
+.provider-btn:disabled img {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+/* Мітка «Скоро» */
+.provider-btn__soon {
+  margin-left: auto;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
 }

@@ -6,7 +6,7 @@
   <title>Тарифи — Second Visuals</title>
   <meta name="description" content="Тарифи Second Visuals: безкоштовна версія та Преміум.">
   <meta name="theme-color" content="#15111F">
-  <link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/logo/logo-1.svg" type="image/svg+xml">
 
   <!-- Шрифти з Google Fonts: Nunito (заголовки) і Manrope (текст) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="logo" href="index.html">
-        <img src="assets/icons/logo.svg" alt="" width="36" height="36">
+        <img src="assets/logo/logo-1.svg" alt="" width="36" height="36">
         Second Visuals
       </a>
 
@@ -44,6 +44,12 @@
           <li class="nav__cta"><a class="btn btn--primary btn--sm" href="#">Завантажити</a></li>
         </ul>
       </nav>
+
+      <!-- Кнопка акаунта: відкриває вікно «Вхід / Реєстрація» (логіка в js/auth.js) -->
+      <button class="account-btn" type="button" data-auth-open aria-haspopup="dialog" aria-label="Вхід / Реєстрація">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg>
+        <span class="account-btn__letter"></span>
+      </button>
     </div>
   </header>
 
@@ -59,14 +65,6 @@
 
     <section class="section section--tight-top">
       <div class="container pricing-center">
-
-        <!-- Перемикач "Щомісяця / Щороку". Логіка — у js/pricing.js -->
-        <div class="billing-toggle" role="group" aria-label="Період оплати">
-          <button class="billing-toggle__btn" type="button" data-period="monthly" aria-pressed="true">Щомісяця</button>
-          <button class="billing-toggle__btn" type="button" data-period="yearly" aria-pressed="false">
-            Щороку <span class="billing-toggle__save">−20%</span>
-          </button>
-        </div>
 
         <div class="pricing-grid">
 
@@ -93,19 +91,16 @@
             <a class="btn btn--ghost btn--block" href="#">Завантажити</a>
           </article>
 
-          <!-- ===================== ТАРИФ: ПРЕМІУМ ===================== -->
-          <article class="plan plan--featured" id="plan-premium">
-            <span class="plan__badge">Найкращий вибір</span>
+          <!-- ===================== ТАРИФ: ПРЕМІУМ (МІСЯЦЬ) ===================== -->
+          <article class="plan" id="plan-premium-month">
             <h2 class="plan__name">Преміум</h2>
             <p class="plan__desc">Максимум краси й підтримка проєкту.</p>
 
-            <!-- Ціни — ЗАГЛУШКИ. Міняй їх у js/pricing.js (об'єкт PREMIUM_PRICES).
-                 Тут стоїть значення "щомісяця", щоб сторінка мала ціну навіть без JS. -->
             <div class="plan__price">
-              <span class="plan__amount" data-price-amount>99 ₴</span>
-              <span class="plan__period" data-price-period>/ місяць</span>
+              <span class="plan__amount">150 грн</span>
+              <span class="plan__period">/ місяць</span>
             </div>
-            <p class="plan__note" data-price-note>Скасувати можна будь-коли</p>
+            <p class="plan__note">Скасувати можна будь-коли</p>
 
             <ul class="check-list">
               <li>Усе з безкоштовного тарифу</li>
@@ -118,13 +113,42 @@
 
             <!-- КНОПКА ОПЛАТИ — поки неактивна (disabled).
                  Коли підключиш оплату: прибери disabled, зміни текст і див. коментар у js/pricing.js -->
-            <button class="btn btn--primary btn--block" type="button" id="pay-premium" disabled>
+            <button class="btn btn--primary btn--block" type="button" id="pay-premium-month" data-plan="premium-month" disabled>
               Оплата скоро
             </button>
-            <p class="plan__hint">Ми ще підключаємо оплату. Слідкуй за новинами в Telegram.</p>
+          </article>
+
+          <!-- ===================== ТАРИФ: ПРЕМІУМ НА РІК ===================== -->
+          <article class="plan plan--featured" id="plan-premium-year">
+            <!-- 1490 грн замість 12 × 150 = 1800 грн → економія ≈17% -->
+            <span class="plan__badge">Економія 17%</span>
+            <h2 class="plan__name">Преміум на рік</h2>
+            <p class="plan__desc">Те саме, що Преміум, але вигідніше.</p>
+
+            <div class="plan__price">
+              <span class="plan__amount">1490 грн</span>
+              <span class="plan__period">/ рік</span>
+            </div>
+            <p class="plan__note">≈124 грн/міс</p>
+
+            <ul class="check-list">
+              <li>Усе з тарифу Преміум</li>
+              <li>Одна оплата на 12 місяців</li>
+              <li>Ціна не зміниться до кінця року</li>
+            </ul>
+
+            <!-- КНОПКА ОПЛАТИ — поки неактивна (disabled). Див. коментар у js/pricing.js -->
+            <button class="btn btn--primary btn--block" type="button" id="pay-premium-year" data-plan="premium-year" disabled>
+              Оплата скоро
+            </button>
           </article>
 
         </div>
+
+        <!-- TODO: заміни # на справжні посилання (ті самі, що в контактах і футері) -->
+        <p class="pricing-news">
+          Слідкуй за новинами в <a href="#">Telegram</a> і <a href="#">TikTok</a>
+        </p>
 
         <a class="more-link" href="support.html">Є питання щодо тарифів? Напиши нам <span aria-hidden="true">→</span></a>
       </div>
@@ -146,6 +170,9 @@
     </div>
   </footer>
 
+  <!-- Налаштування (Google Client ID) і вхід в акаунт — на всіх сторінках -->
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
   <script src="js/pricing.js"></script>
 </body>

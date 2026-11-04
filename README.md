@@ -10,18 +10,22 @@
 ```
 index.html        — головна
 features.html     — можливості
-pricing.html      — тарифи (Безкоштовно / Преміум, оплата ще не підключена)
+pricing.html      — тарифи (Безкоштовно / Преміум / Преміум на рік, оплата ще не підключена)
 support.html      — FAQ, форма підтримки, контакти
+logo-preview.html — службова сторінка: 3 варіанти логотипу поруч
 css/
   base.css        — кольори (змінні), шрифти, загальні правила
   layout.css      — меню, низ сторінки, сітки, секції
   components.css  — кнопки, картки, форми, FAQ, тарифи
 js/
+  config.js       — налаштування, які заповнюєш ти (Google Client ID)
+  auth.js         — вікно «Вхід / Реєстрація» (на всіх сторінках)
   main.js         — меню на телефоні, рік у футері (на всіх сторінках)
   support.js      — FAQ і форма підтримки
-  pricing.js      — перемикач місяць/рік і місце під оплату
+  pricing.js      — місце під майбутню оплату
 assets/
-  icons/          — логотип, іконки Telegram і TikTok
+  logo/           — 3 варіанти логотипу (logo-1/2/3.svg)
+  icons/          — іконки Telegram, TikTok, Google, Microsoft
   images/         — картинки (зараз заглушки)
 ```
 
@@ -44,8 +48,8 @@ python -m http.server 8000
 - посилання `#` на кнопках «Завантажити» — на файл лаунчера;
 - посилання `#` на Telegram і TikTok (у футері кожної сторінки та на `support.html`);
 - тексти й картинки на `features.html` (картинки клади в `assets/images/`);
-- ціни Преміуму — в `js/pricing.js` (об'єкт `PREMIUM_PRICES`);
-- логотип — `assets/icons/logo.svg`;
+- Google Client ID — у `js/config.js` (там інструкція, де його взяти);
+- логотип — див. розділ нижче;
 - оплату — інструкція в коментарі в `js/pricing.js`;
 - відправку форми підтримки — коментар у `js/support.js`.
 
@@ -54,3 +58,17 @@ python -m http.server 8000
 ## Публікація на GitHub Pages
 
 Settings → Pages → Source: *Deploy from a branch* → гілка `main`, тека `/ (root)`.
+
+## Логотип: як поміняти варіант
+
+Зараз на сайті стоїть `assets/logo/logo-1.svg`. Усі варіанти поруч — на сторінці `logo-preview.html`.
+Щоб поставити інший, у файлах `index.html`, `features.html`, `pricing.html`, `support.html`
+заміни `assets/logo/logo-1.svg` на `assets/logo/logo-2.svg` (або `logo-3.svg`).
+Це 2 місця в кожному файлі: іконка вкладки (`<link rel="icon">`) і логотип у меню.
+У VS Code: Ctrl+Shift+H → «Замінити в усіх файлах».
+
+## Вхід через Google
+
+Працює тільки з адреси http/https (GitHub Pages або `python -m http.server`),
+а не з файлу, відкритого подвійним кліком. Адресу сайту треба додати в
+«Authorized JavaScript origins» у Google Cloud Console.

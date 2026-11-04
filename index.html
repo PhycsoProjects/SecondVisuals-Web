@@ -6,7 +6,7 @@
   <title>Second Visuals — візуальний клієнт для Minecraft Java Edition</title>
   <meta name="description" content="Second Visuals — лаунчер і візуальний Fabric-мод для Minecraft Java Edition: шейдери, частинки, плавні анімації та новий інтерфейс.">
   <meta name="theme-color" content="#15111F">
-  <link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/logo/logo-1.svg" type="image/svg+xml">
 
   <!-- Шрифти з Google Fonts: Nunito (заголовки) і Manrope (текст) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="logo" href="index.html">
-        <img src="assets/icons/logo.svg" alt="" width="36" height="36">
+        <img src="assets/logo/logo-1.svg" alt="" width="36" height="36">
         Second Visuals
       </a>
 
@@ -47,6 +47,12 @@
           <li class="nav__cta"><a class="btn btn--primary btn--sm" href="#">Завантажити</a></li>
         </ul>
       </nav>
+
+      <!-- Кнопка акаунта: відкриває вікно «Вхід / Реєстрація» (логіка в js/auth.js) -->
+      <button class="account-btn" type="button" data-auth-open aria-haspopup="dialog" aria-label="Вхід / Реєстрація">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg>
+        <span class="account-btn__letter"></span>
+      </button>
     </div>
   </header>
 
@@ -178,6 +184,9 @@
     </div>
   </footer>
 
+  <!-- Налаштування (Google Client ID) і вхід в акаунт — на всіх сторінках -->
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
