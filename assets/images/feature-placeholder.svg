@@ -1,0 +1,19 @@
+<!-- ЗАГЛУШКА для блоків на сторінці "Можливості". Заміни на справжні скріншоти/гіфки -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <defs>
+    <radialGradient id="g" cx=".5" cy=".35" r=".7">
+      <stop offset="0" stop-color="#5EE6C8" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#5EE6C8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="400" rx="28" fill="#1D1729"/>
+  <rect width="600" height="400" rx="28" fill="url(#g)"/>
+  <rect x=".5" y=".5" width="599" height="399" rx="27.5" fill="none" stroke="#F3E9E1" stroke-opacity=".1"/>
+  <!-- Кубик посередині -->
+  <g transform="translate(300 190)" stroke-linejoin="round" stroke-width="3">
+    <path d="M0-80L70-40V40L0 80-70 40V-40Z" fill="#261E36" stroke="#5EE6C8" stroke-opacity=".6"/>
+    <path d="M-70-40L0 0 70-40M0 0V80" fill="none" stroke="#5EE6C8" stroke-opacity=".6"/>
+    <path d="M0-80L70-40 0 0-70-40Z" fill="#5EE6C8" fill-opacity=".22"/>
+  </g>
+  <rect x="220" y="320" width="160" height="12" rx="6" fill="#F3E9E1" fill-opacity=".18"/>
+</svg>

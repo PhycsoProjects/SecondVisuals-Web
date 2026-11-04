@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Підтримка — Second Visuals</title>
+  <meta name="description" content="Питання й відповіді про Second Visuals, форма зв'язку та контакти.">
+  <meta name="theme-color" content="#15111F">
+  <link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+
+  <!-- Шрифти з Google Fonts: Nunito (заголовки) і Manrope (текст) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти до вмісту</a>
+
+  <!-- ===================== ВЕРХНЄ МЕНЮ (однакове на всіх сторінках) ===================== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html">
+        <img src="assets/icons/logo.svg" alt="" width="36" height="36">
+        Second Visuals
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Відкрити меню">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="nav" id="site-nav" aria-label="Головне меню">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html">Головна</a></li>
+          <li><a class="nav__link" href="features.html">Можливості</a></li>
+          <li><a class="nav__link" href="pricing.html">Тарифи</a></li>
+          <li><a class="nav__link" href="support.html" aria-current="page">Підтримка</a></li>
+          <!-- TODO: заміни # на посилання на файл лаунчера -->
+          <li class="nav__cta"><a class="btn btn--primary btn--sm" href="#">Завантажити</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== ЗАГОЛОВОК СТОРІНКИ ===================== -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Підтримка</span>
+        <h1>Чим <span class="accent">допомогти</span>?</h1>
+        <p>Глянь відповіді на часті питання. Не знайшов свого — напиши нам.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight-top">
+      <div class="container support-layout">
+
+        <!-- ===================== FAQ (питання-відповіді) =====================
+             Кожне питання — це <details>. Воно розкривається по кліку навіть без JS,
+             а support.js додає плавну анімацію і закриває інші відкриті питання.
+             Щоб додати питання — скопіюй один блок <details>...</details>. -->
+        <div>
+          <h2 class="visually-hidden">Часті питання</h2>
+          <div class="faq">
+            <details class="faq__item">
+              <summary class="faq__question">
+                Що таке Second Visuals?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq__answer">
+                <div class="faq__answer-inner">
+                  <p>Це лаунчер і візуальний Fabric-мод для Minecraft Java Edition. Він робить гру красивішою: освітлення, частинки, анімації, новий інтерфейс.</p>
+                </div>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">
+                Які версії Minecraft підтримуються?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq__answer">
+                <div class="faq__answer-inner">
+                  <!-- ЗАГЛУШКА: впиши справжні версії -->
+                  <p>Актуальні версії Java Edition з підтримкою Fabric. Точний список з'явиться в лаунчері перед релізом.</p>
+                </div>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">
+                Чи потрібна ліцензія Minecraft?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq__answer">
+                <div class="faq__answer-inner">
+                  <p>Так, для гри потрібен ліцензійний акаунт Minecraft Java Edition. Лаунчер входить через твій акаунт Microsoft.</p>
+                </div>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">
+                Чи можна грати на серверах?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq__answer">
+                <div class="faq__answer-inner">
+                  <p>Так. Мод змінює лише те, як гра виглядає у тебе, і не дає переваг у грі. Але завжди перевіряй правила конкретного сервера.</p>
+                </div>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">
+                Гра гальмує після встановлення. Що робити?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq__answer">
+                <div class="faq__answer-inner">
+                  <p>Обери в лаунчері профіль «Продуктивність» або вимкни окремі ефекти в налаштуваннях мода. Якщо не допомогло — напиши нам і вкажи модель відеокарти.</p>
+                </div>
+              </div>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question">
+                Коли з'явиться оплата Преміуму?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq__answer">
+                <div class="faq__answer-inner">
+                  <p>Ми саме її підключаємо. Новини будуть у нашому Telegram-каналі.</p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- ===================== ФОРМА + КОНТАКТИ ===================== -->
+        <div>
+          <div class="panel">
+            <h2>Написати в підтримку</h2>
+            <p>Опиши проблему або ідею — ми прочитаємо.</p>
+
+            <!-- Форма поки НІКУДИ не відправляє дані. Логіка — у js/support.js -->
+            <form class="form" id="support-form" novalidate>
+              <div class="form__field">
+                <label class="form__label" for="support-name">Ім'я</label>
+                <input class="form__input" type="text" id="support-name" name="name" placeholder="Як до тебе звертатись" autocomplete="name" maxlength="60" required>
+              </div>
+
+              <div class="form__field">
+                <label class="form__label" for="support-message">Повідомлення</label>
+                <textarea class="form__textarea" id="support-message" name="message" placeholder="Що сталося? Якщо можеш — вкажи версію гри." maxlength="2000" required></textarea>
+              </div>
+
+              <button class="btn btn--primary" type="submit">Надіслати</button>
+
+              <!-- Сюди support.js виводить повідомлення після надсилання -->
+              <div id="support-status" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div class="panel">
+            <h2>Контакти</h2>
+            <p>Швидше за все відповідаємо в Telegram.</p>
+            <div class="contacts">
+              <!-- TODO: заміни # на посилання на Telegram, наприклад https://t.me/твій_канал
+                   і додай target="_blank" rel="noopener" -->
+              <a class="contact-btn" href="#">
+                <span class="contact-btn__icon"><img src="assets/icons/telegram.svg" alt="" width="22" height="22"></span>
+                <span>
+                  <span class="contact-btn__title">Telegram</span>
+                  <span class="contact-btn__sub">Новини та чат спільноти</span>
+                </span>
+              </a>
+              <!-- TODO: заміни # на посилання на TikTok, наприклад https://www.tiktok.com/@твій_нік
+                   і додай target="_blank" rel="noopener" -->
+              <a class="contact-btn" href="#">
+                <span class="contact-btn__icon"><img src="assets/icons/tiktok.svg" alt="" width="22" height="22"></span>
+                <span>
+                  <span class="contact-btn__title">TikTok</span>
+                  <span class="contact-btn__sub">Відео з новими ефектами</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== НИЗ СТОРІНКИ (однаковий на всіх сторінках) ===================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__copy">© <span data-year>2026</span> Second Visuals</p>
+      <ul class="socials">
+        <!-- TODO: заміни # на посилання на свій Telegram-канал, наприклад https://t.me/твій_канал
+             і додай target="_blank" rel="noopener", щоб відкривалось у новій вкладці -->
+        <li><a class="social-btn" href="#" aria-label="Telegram"><img src="assets/icons/telegram.svg" alt="" width="22" height="22"></a></li>
+        <!-- TODO: заміни # на посилання на свій TikTok, наприклад https://www.tiktok.com/@твій_нік -->
+        <li><a class="social-btn" href="#" aria-label="TikTok"><img src="assets/icons/tiktok.svg" alt="" width="22" height="22"></a></li>
+      </ul>
+      <p class="site-footer__note">Second Visuals не є офіційним продуктом Minecraft. Не схвалено та не пов'язано з Mojang або Microsoft.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/support.js"></script>
+</body>
+</html>

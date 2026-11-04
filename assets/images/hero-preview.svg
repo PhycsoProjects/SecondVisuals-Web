@@ -1,0 +1,45 @@
+<!-- ЗАГЛУШКА: схематичний вигляд лаунчера. Заміни на справжній скріншот (наприклад hero-preview.png) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5EE6C8" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#261E36" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="view"><rect x="168" y="64" width="448" height="372" rx="20"/></clipPath>
+  </defs>
+  <!-- Вікно лаунчера -->
+  <rect width="640" height="460" rx="28" fill="#1D1729"/>
+  <rect x=".5" y=".5" width="639" height="459" rx="27.5" fill="none" stroke="#F3E9E1" stroke-opacity=".1"/>
+  <!-- Верхня смужка з "кнопками" вікна -->
+  <circle cx="34" cy="32" r="6" fill="#F3E9E1" fill-opacity=".18"/>
+  <circle cx="54" cy="32" r="6" fill="#F3E9E1" fill-opacity=".18"/>
+  <circle cx="74" cy="32" r="6" fill="#5EE6C8"/>
+  <rect x="250" y="25" width="140" height="14" rx="7" fill="#F3E9E1" fill-opacity=".1"/>
+  <!-- Бічне меню -->
+  <rect x="24" y="64" width="128" height="372" rx="20" fill="#261E36"/>
+  <rect x="40" y="84" width="96" height="34" rx="17" fill="#5EE6C8" fill-opacity=".18"/>
+  <rect x="52" y="97" width="60" height="8" rx="4" fill="#5EE6C8"/>
+  <rect x="52" y="142" width="70" height="8" rx="4" fill="#F3E9E1" fill-opacity=".3"/>
+  <rect x="52" y="176" width="54" height="8" rx="4" fill="#F3E9E1" fill-opacity=".3"/>
+  <rect x="52" y="210" width="64" height="8" rx="4" fill="#F3E9E1" fill-opacity=".3"/>
+  <rect x="40" y="376" width="96" height="44" rx="14" fill="#15111F"/>
+  <circle cx="62" cy="398" r="11" fill="#5EE6C8" fill-opacity=".4"/>
+  <rect x="80" y="393" width="44" height="8" rx="4" fill="#F3E9E1" fill-opacity=".35"/>
+  <!-- Головна область: "кадр гри" з блоковими пагорбами -->
+  <g clip-path="url(#view)">
+    <rect x="168" y="64" width="448" height="372" fill="#15111F"/>
+    <rect x="168" y="64" width="448" height="260" fill="url(#sky)"/>
+    <circle cx="520" cy="130" r="26" fill="#F3E9E1" fill-opacity=".85"/>
+    <path fill="#2E2541" d="M168 300h48v-24h40v-32h48v40h56v-24h48v-40h40v24h56v-16h64v-24h48V436H168z"/>
+    <path fill="#261E36" d="M168 340h64v-24h56v16h72v-32h56v24h48v-16h72v24h56v-8h24V436H168z"/>
+    <path fill="#1D1729" d="M168 380h96v-16h64v24h88v-20h80v16h120V436H168z"/>
+  </g>
+  <!-- Кнопка "Грати" -->
+  <rect x="200" y="372" width="150" height="44" rx="22" fill="#5EE6C8"/>
+  <path d="M244 384l14 10-14 10z" fill="#15111F"/>
+  <rect x="266" y="390" width="56" height="8" rx="4" fill="#15111F"/>
+  <!-- Картка "версія" -->
+  <rect x="452" y="372" width="144" height="44" rx="14" fill="#15111F" fill-opacity=".85"/>
+  <rect x="468" y="384" width="62" height="7" rx="3.5" fill="#F3E9E1" fill-opacity=".55"/>
+  <rect x="468" y="398" width="40" height="7" rx="3.5" fill="#5EE6C8" fill-opacity=".7"/>
+</svg>

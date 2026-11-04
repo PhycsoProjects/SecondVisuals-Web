@@ -1,0 +1,220 @@
+/* =========================================================
+   base.css — основа сайту: кольори, шрифти, загальні правила
+   Цей файл підключається ПЕРШИМ на кожній сторінці.
+   ========================================================= */
+
+/* ---------- Кольори та інші налаштування (змінні CSS) ----------
+   Щоб змінити колір на всьому сайті — міняй значення тут.
+   Базова палітра як у лаунчері:
+   - фон темно-сливовий, акцент тільки м'ятний, текст теплий білий.
+   Усі інші відтінки нижче — це ті самі три кольори, але світліші/темніші
+   або з прозорістю. Нових яскравих кольорів немає. */
+:root {
+  /* Головні кольори */
+  --color-bg: #15111F;            /* фон сторінки (темно-сливовий) */
+  --color-accent: #5EE6C8;        /* акцент (м'ятний) — кнопки, посилання */
+  --color-text: #F3E9E1;          /* основний текст (теплий білий) */
+
+  /* Похідні відтінки сливового — для карток і блоків */
+  --color-surface: #1D1729;       /* картка трохи світліша за фон */
+  --color-surface-2: #261E36;     /* ще світліше — для наведення, полів форми */
+  --color-border: rgba(243, 233, 225, 0.10);  /* тонкі рамки */
+
+  /* Похідні відтінки тексту та акценту */
+  --color-text-muted: rgba(243, 233, 225, 0.68); /* другорядний текст */
+  --color-text-faint: rgba(243, 233, 225, 0.45); /* зовсім дрібні підписи */
+  --color-accent-soft: rgba(94, 230, 200, 0.12); /* м'ятна підкладка */
+  --color-accent-glow: rgba(94, 230, 200, 0.28); /* м'ятне світіння */
+  --color-on-accent: #15111F;     /* текст НА м'ятній кнопці (темний) */
+
+  /* Шрифти
+     Nunito — жирний і округлий, для заголовків.
+     Manrope — спокійний, для звичайного тексту.
+     Обидва підтримують кирилицю. */
+  --font-heading: "Nunito", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+
+  /* Закруглення — на сайті немає гострих кутів */
+  --radius-sm: 12px;     /* дрібні елементи: поля, бейджі */
+  --radius-md: 18px;     /* кнопки, малі картки */
+  --radius-lg: 28px;     /* великі картки й блоки */
+  --radius-full: 999px;  /* повністю круглі: кнопки-пігулки, іконки */
+
+  /* Відступи та ширина */
+  --container: 1160px;   /* максимальна ширина вмісту */
+  --gutter: 20px;        /* бічний відступ на телефоні */
+  --section-gap: clamp(64px, 10vw, 120px); /* відстань між секціями */
+
+  /* Тіні та анімації */
+  --shadow-card: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+  --transition: 0.2s ease;
+}
+
+/* ---------- Скидання стандартних стилів браузера ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  /* М'яке м'ятне світіння зверху сторінки — декоративно */
+  background-image: radial-gradient(
+    ellipse 80% 50% at 50% -10%,
+    rgba(94, 230, 200, 0.10),
+    transparent 70%
+  );
+  background-repeat: no-repeat;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Основна частина розтягується, щоб низ сторінки був унизу */
+main {
+  flex: 1;
+}
+
+/* ---------- Заголовки ---------- */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+}
+
+h3 {
+  font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+  font-weight: 800;
+}
+
+p {
+  color: var(--color-text-muted);
+}
+
+/* Виділене м'ятним слово в заголовку: <span class="accent">...</span> */
+.accent {
+  color: var(--color-accent);
+}
+
+/* ---------- Посилання ---------- */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition), opacity var(--transition);
+}
+
+a:hover {
+  opacity: 0.85;
+}
+
+/* ---------- Картинки ---------- */
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Усі картинки закруглені (крім іконок, у них свій клас) */
+img {
+  border-radius: var(--radius-md);
+}
+
+/* ---------- Форми ---------- */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* ---------- Доступність ---------- */
+
+/* Видима рамка при навігації клавіатурою (Tab) */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Текст тільки для екранних читалок (невидимий на екрані) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Посилання "Перейти до вмісту" — з'являється при натисканні Tab */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 100;
+  padding: 10px 18px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-radius: var(--radius-full);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Виділення тексту мишкою */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* Якщо в системі вимкнені анімації — вимикаємо і тут */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тарифи — Second Visuals</title>
+  <meta name="description" content="Тарифи Second Visuals: безкоштовна версія та Преміум.">
+  <meta name="theme-color" content="#15111F">
+  <link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+
+  <!-- Шрифти з Google Fonts: Nunito (заголовки) і Manrope (текст) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти до вмісту</a>
+
+  <!-- ===================== ВЕРХНЄ МЕНЮ (однакове на всіх сторінках) ===================== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html">
+        <img src="assets/icons/logo.svg" alt="" width="36" height="36">
+        Second Visuals
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Відкрити меню">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="nav" id="site-nav" aria-label="Головне меню">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html">Головна</a></li>
+          <li><a class="nav__link" href="features.html">Можливості</a></li>
+          <li><a class="nav__link" href="pricing.html" aria-current="page">Тарифи</a></li>
+          <li><a class="nav__link" href="support.html">Підтримка</a></li>
+          <!-- TODO: заміни # на посилання на файл лаунчера -->
+          <li class="nav__cta"><a class="btn btn--primary btn--sm" href="#">Завантажити</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== ЗАГОЛОВОК СТОРІНКИ ===================== -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Тарифи</span>
+        <h1>Обери свій <span class="accent">рівень</span></h1>
+        <p>Почни безкоштовно. Перейди на Преміум, коли захочеш більше ефектів і космітики.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight-top">
+      <div class="container pricing-center">
+
+        <!-- Перемикач "Щомісяця / Щороку". Логіка — у js/pricing.js -->
+        <div class="billing-toggle" role="group" aria-label="Період оплати">
+          <button class="billing-toggle__btn" type="button" data-period="monthly" aria-pressed="true">Щомісяця</button>
+          <button class="billing-toggle__btn" type="button" data-period="yearly" aria-pressed="false">
+            Щороку <span class="billing-toggle__save">−20%</span>
+          </button>
+        </div>
+
+        <div class="pricing-grid">
+
+          <!-- ===================== ТАРИФ: БЕЗКОШТОВНО ===================== -->
+          <article class="plan">
+            <h2 class="plan__name">Безкоштовно</h2>
+            <p class="plan__desc">Усе потрібне, щоб почати.</p>
+            <div class="plan__price">
+              <span class="plan__amount">0 ₴</span>
+              <span class="plan__period">назавжди</span>
+            </div>
+            <p class="plan__note">Без реєстрації картки</p>
+
+            <ul class="check-list">
+              <li>Лаунчер і автооновлення</li>
+              <li>Базові пресети освітлення</li>
+              <li>Нові частинки та анімації</li>
+              <li>Мінімалістичний HUD</li>
+              <li class="is-off">Усі пресети та теми інтерфейсу</li>
+              <li class="is-off">Преміум-космітика</li>
+            </ul>
+
+            <!-- TODO: заміни # на посилання на файл лаунчера -->
+            <a class="btn btn--ghost btn--block" href="#">Завантажити</a>
+          </article>
+
+          <!-- ===================== ТАРИФ: ПРЕМІУМ ===================== -->
+          <article class="plan plan--featured" id="plan-premium">
+            <span class="plan__badge">Найкращий вибір</span>
+            <h2 class="plan__name">Преміум</h2>
+            <p class="plan__desc">Максимум краси й підтримка проєкту.</p>
+
+            <!-- Ціни — ЗАГЛУШКИ. Міняй їх у js/pricing.js (об'єкт PREMIUM_PRICES).
+                 Тут стоїть значення "щомісяця", щоб сторінка мала ціну навіть без JS. -->
+            <div class="plan__price">
+              <span class="plan__amount" data-price-amount>99 ₴</span>
+              <span class="plan__period" data-price-period>/ місяць</span>
+            </div>
+            <p class="plan__note" data-price-note>Скасувати можна будь-коли</p>
+
+            <ul class="check-list">
+              <li>Усе з безкоштовного тарифу</li>
+              <li>Усі пресети освітлення</li>
+              <li>Теми інтерфейсу</li>
+              <li>Преміум-плащі та прикраси</li>
+              <li>Ранній доступ до нових функцій</li>
+              <li>Пріоритетна підтримка</li>
+            </ul>
+
+            <!-- КНОПКА ОПЛАТИ — поки неактивна (disabled).
+                 Коли підключиш оплату: прибери disabled, зміни текст і див. коментар у js/pricing.js -->
+            <button class="btn btn--primary btn--block" type="button" id="pay-premium" disabled>
+              Оплата скоро
+            </button>
+            <p class="plan__hint">Ми ще підключаємо оплату. Слідкуй за новинами в Telegram.</p>
+          </article>
+
+        </div>
+
+        <a class="more-link" href="support.html">Є питання щодо тарифів? Напиши нам <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== НИЗ СТОРІНКИ (однаковий на всіх сторінках) ===================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__copy">© <span data-year>2026</span> Second Visuals</p>
+      <ul class="socials">
+        <!-- TODO: заміни # на посилання на свій Telegram-канал, наприклад https://t.me/твій_канал
+             і додай target="_blank" rel="noopener", щоб відкривалось у новій вкладці -->
+        <li><a class="social-btn" href="#" aria-label="Telegram"><img src="assets/icons/telegram.svg" alt="" width="22" height="22"></a></li>
+        <!-- TODO: заміни # на посилання на свій TikTok, наприклад https://www.tiktok.com/@твій_нік -->
+        <li><a class="social-btn" href="#" aria-label="TikTok"><img src="assets/icons/tiktok.svg" alt="" width="22" height="22"></a></li>
+      </ul>
+      <p class="site-footer__note">Second Visuals не є офіційним продуктом Minecraft. Не схвалено та не пов'язано з Mojang або Microsoft.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/pricing.js"></script>
+</body>
+</html>
