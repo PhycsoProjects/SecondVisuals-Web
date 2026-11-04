@@ -7,11 +7,11 @@
   <meta name="robots" content="noindex">
   <title>Вибір логотипу — Second Visuals</title>
   <meta name="theme-color" content="#15111F">
-  <link rel="icon" href="assets/logo/logo-1.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/logo/logo-4.svg" type="image/svg+xml">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Nunito:wght@300;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -32,6 +32,49 @@
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
+    }
+
+    /* Широка картка на весь ряд (варіант 4) */
+    .logo-card--wide {
+      grid-column: 1 / -1;
+    }
+
+    /* Повний логотип: знак + напис у два рядки, як на ескізі */
+    .lockup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      padding: 32px 16px;
+      border-radius: var(--radius-md);
+      background: var(--color-bg);
+    }
+
+    .lockup img {
+      width: clamp(110px, 22vw, 180px);
+      height: auto;
+      border-radius: 0;
+    }
+
+    .lockup__text {
+      font-family: var(--font-heading);
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .lockup__text b {
+      display: block;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 7vw, 4.2rem);
+    }
+
+    .lockup__text span {
+      display: block;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 7vw, 4.2rem);
+      letter-spacing: 0.06em;
     }
 
     .logo-card.is-current {
@@ -117,24 +160,53 @@
       <div class="container">
         <span class="eyebrow">Службова сторінка</span>
         <h1>Вибір <span class="accent">логотипу</span></h1>
-        <p>Три варіанти поруч: великий, малий, у меню і як іконка вкладки. Зараз на сайті стоїть варіант 1 «Подвійний погляд».</p>
+        <p>Три варіанти поруч: великий, малий, у меню і як іконка вкладки. Зараз на сайті стоїть варіант 4 «Стрічка SV».</p>
       </div>
     </section>
 
     <section class="section section--tight-top">
       <div class="container logo-grid">
 
-        <!-- ===== Варіант 1 ===== -->
-        <article class="logo-card is-current">
+        <!-- ===== Варіант 4 (зараз на сайті) ===== -->
+        <article class="logo-card logo-card--wide is-current">
           <div>
             <span class="eyebrow">Зараз на сайті</span>
+            <h2>4. Стрічка SV</h2>
+            <p>За твоїм ескізом: S і V — одна стрічка, V виростає із S і перекриває її. М'ятний градієнт, відблиски і світіння.</p>
+          </div>
+          <div class="lockup">
+            <img src="assets/logo/logo-4.svg" alt="Логотип, варіант 4" width="180" height="180">
+            <div class="lockup__text"><b>Second</b><span>Visuals</span></div>
+          </div>
+          <div class="sizes">
+            <figure><img src="assets/logo/logo-4.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
+            <figure><img src="assets/logo/logo-4.svg" alt="" width="36" height="36"><figcaption>36</figcaption></figure>
+            <figure><img src="assets/logo/logo-4.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
+            <figure><img src="assets/logo/logo-4.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
+          </div>
+          <div class="sizes sizes--light">
+            <figure><img src="assets/logo/logo-4.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
+            <figure><img src="assets/logo/logo-4.svg" alt="" width="36" height="36"><figcaption>36</figcaption></figure>
+            <figure><img src="assets/logo/logo-4.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
+            <figure><img src="assets/logo/logo-4.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
+          </div>
+          <div>
+            <span class="logo"><img src="assets/logo/logo-4.svg" alt="" width="36" height="36">Second Visuals</span>
+          </div>
+          <div><span class="tab-mock"><img src="assets/logo/logo-4.svg" alt="">Second Visuals — візуальний…</span></div>
+          <code>assets/logo/logo-4.svg</code>
+        </article>
+
+        <!-- ===== Варіант 1 ===== -->
+        <article class="logo-card">
+          <div>
             <h2>1. Подвійний погляд</h2>
             <p>Око — «Visuals». Його м'ятне відлуння, зміщене по діагоналі, — «Second». Зіниця — піксель із відблиском.</p>
           </div>
           <img class="logo-big" src="assets/logo/logo-1.svg" alt="Логотип, варіант 1" width="160" height="160">
           <div class="sizes">
             <figure><img src="assets/logo/logo-1.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
-            <figure><img src="assets/logo/logo-1.svg" alt="" width="36" height="36"><figcaption>36 (меню)</figcaption></figure>
+            <figure><img src="assets/logo/logo-1.svg" alt="" width="36" height="36"><figcaption>36</figcaption></figure>
             <figure><img src="assets/logo/logo-1.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
             <figure><img src="assets/logo/logo-1.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
           </div>
@@ -160,7 +232,7 @@
           <img class="logo-big" src="assets/logo/logo-2.svg" alt="Логотип, варіант 2" width="160" height="160">
           <div class="sizes">
             <figure><img src="assets/logo/logo-2.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
-            <figure><img src="assets/logo/logo-2.svg" alt="" width="36" height="36"><figcaption>36 (меню)</figcaption></figure>
+            <figure><img src="assets/logo/logo-2.svg" alt="" width="36" height="36"><figcaption>36</figcaption></figure>
             <figure><img src="assets/logo/logo-2.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
             <figure><img src="assets/logo/logo-2.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
           </div>
@@ -186,7 +258,7 @@
           <img class="logo-big" src="assets/logo/logo-3.svg" alt="Логотип, варіант 3" width="160" height="160">
           <div class="sizes">
             <figure><img src="assets/logo/logo-3.svg" alt="" width="64" height="64"><figcaption>64</figcaption></figure>
-            <figure><img src="assets/logo/logo-3.svg" alt="" width="36" height="36"><figcaption>36 (меню)</figcaption></figure>
+            <figure><img src="assets/logo/logo-3.svg" alt="" width="36" height="36"><figcaption>36</figcaption></figure>
             <figure><img src="assets/logo/logo-3.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
             <figure><img src="assets/logo/logo-3.svg" alt="" width="16" height="16"><figcaption>16</figcaption></figure>
           </div>

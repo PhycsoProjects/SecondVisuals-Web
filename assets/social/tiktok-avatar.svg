@@ -1,0 +1,47 @@
+<!-- Аватарка TikTok для Second Visuals: 1080×1080, фон #15111F, знак SV по центру.
+     TikTok обрізає аватарку в коло — знак займає ~77% радіуса кола, тож нічого не обріжеться.
+     PNG для завантаження в TikTok — на сторінці avatar.html (кнопка «Завантажити PNG»). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+      <!-- Градієнт S: від глибокого м'ятного (знизу) до яскравого (вгорі) -->
+      <linearGradient id="av-s" x1="0" y1="1" x2=".6" y2="0">
+        <stop offset="0" stop-color="#2A9C87"/>
+        <stop offset="1" stop-color="#5EE6C8"/>
+      </linearGradient>
+      <!-- Градієнт V: м'ятний, до кінчика світлішає -->
+      <linearGradient id="av-v" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#38B49C"/>
+        <stop offset=".55" stop-color="#5EE6C8"/>
+        <stop offset="1" stop-color="#B8F4E6"/>
+      </linearGradient>
+      <!-- Світіння навколо знака -->
+      <filter id="av-glow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="4.5"/>
+      </filter>
+    </defs>
+  <!-- Фон -->
+  <rect width="1080" height="1080" fill="#15111F"/>
+  <!-- Знак SV з logo-4.svg, збільшений і по центру -->
+  <g transform="translate(161.25 176.25) scale(7.5)">
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Світіння: ті самі лінії, розмиті -->
+      <g filter="url(#av-glow)" opacity=".5" stroke="#5EE6C8" stroke-width="11">
+        <path d="M52 25 C45 14 19 15 19 30 C19 46 51 42 51 61 C51 79 25 84 12 71"/>
+        <path d="M43 32 C50 50 54 63 59 75 C65 58 74 36 89 17"/>
+      </g>
+  
+      <!-- S -->
+      <path d="M52 25 C45 14 19 15 19 30 C19 46 51 42 51 61 C51 79 25 84 12 71" stroke="url(#av-s)" stroke-width="11"/>
+      <!-- Відблиск на верхній дузі S -->
+      <path d="M44 20 C36 16 25 18 23 27" stroke="#F3E9E1" stroke-opacity=".4" stroke-width="2.5"/>
+  
+      <!-- Тінь під V: відділяє V від S там, де стрічки перетинаються -->
+      <path d="M43 32 C50 50 54 63 59 75" stroke="#15111F" stroke-opacity=".75" stroke-width="16"/>
+  
+      <!-- V -->
+      <path d="M43 32 C50 50 54 63 59 75 C65 58 74 36 89 17" stroke="url(#av-v)" stroke-width="11"/>
+      <!-- Відблиск уздовж правої гілки V -->
+      <path d="M68 50 C73 39 79 30 86 22" stroke="#F3E9E1" stroke-opacity=".5" stroke-width="2.5"/>
+    </g>
+  </g>
+</svg>

@@ -12,7 +12,8 @@ index.html        — головна
 features.html     — можливості
 pricing.html      — тарифи (Безкоштовно / Преміум / Преміум на рік, оплата ще не підключена)
 support.html      — FAQ, форма підтримки, контакти
-logo-preview.html — службова сторінка: 3 варіанти логотипу поруч
+logo-preview.html — службова сторінка: усі варіанти логотипу поруч
+avatar.html       — службова сторінка: аватарка TikTok + кнопка «Завантажити PNG»
 css/
   base.css        — кольори (змінні), шрифти, загальні правила
   layout.css      — меню, низ сторінки, сітки, секції
@@ -24,7 +25,8 @@ js/
   support.js      — FAQ і форма підтримки
   pricing.js      — місце під майбутню оплату
 assets/
-  logo/           — 3 варіанти логотипу (logo-1/2/3.svg)
+  logo/           — варіанти логотипу (logo-1…4.svg)
+  social/         — картинки для соцмереж (tiktok-avatar.svg)
   icons/          — іконки Telegram, TikTok, Google, Microsoft
   images/         — картинки (зараз заглушки)
 ```
@@ -61,9 +63,9 @@ Settings → Pages → Source: *Deploy from a branch* → гілка `main`, т�
 
 ## Логотип: як поміняти варіант
 
-Зараз на сайті стоїть `assets/logo/logo-1.svg`. Усі варіанти поруч — на сторінці `logo-preview.html`.
+Зараз на сайті стоїть `assets/logo/logo-4.svg`. Усі варіанти поруч — на сторінці `logo-preview.html`.
 Щоб поставити інший, у файлах `index.html`, `features.html`, `pricing.html`, `support.html`
-заміни `assets/logo/logo-1.svg` на `assets/logo/logo-2.svg` (або `logo-3.svg`).
+заміни `assets/logo/logo-4.svg` на інший, наприклад `assets/logo/logo-1.svg`.
 Це 2 місця в кожному файлі: іконка вкладки (`<link rel="icon">`) і логотип у меню.
 У VS Code: Ctrl+Shift+H → «Замінити в усіх файлах».
 

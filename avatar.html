@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Службова сторінка: аватарка для TikTok. Її немає в меню і пошуковикам вона не потрібна. -->
+  <meta name="robots" content="noindex">
+  <title>Аватарка TikTok — Second Visuals</title>
+  <meta name="theme-color" content="#15111F">
+  <link rel="icon" href="assets/logo/logo-4.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- Стилі лише для цієї сторінки -->
+  <style>
+    .avatar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .avatar-card {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+      padding: 24px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .avatar-card h2 {
+      font-size: 1.3rem;
+    }
+
+    /* Квадрат: показуємо, де TikTok обріже (пунктирне коло) */
+    .avatar-square {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .avatar-square svg,
+    .avatar-circle img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .avatar-square::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px dashed rgba(243, 233, 225, 0.45);
+      pointer-events: none;
+    }
+
+    /* Коло: так аватарка виглядатиме в профілі */
+    .avatar-circle img {
+      border-radius: 50%;
+    }
+
+    /* Малі кружечки — як у коментарях і в стрічці */
+    .avatar-small {
+      display: flex;
+      align-items: flex-end;
+      gap: 18px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: var(--color-bg);
+    }
+
+    .avatar-small figure {
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+    }
+
+    .avatar-small img {
+      border-radius: 50%;
+    }
+
+    .avatar-small figcaption {
+      font-size: 0.75rem;
+      color: var(--color-text-faint);
+    }
+
+    .avatar-actions {
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Службова сторінка</span>
+        <h1>Аватарка для <span class="accent">TikTok</span></h1>
+        <p>1080×1080, фон як у сайту, знак по центру. Пунктир показує, де TikTok обріже картинку в коло — знак повністю всередині.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight-top">
+      <div class="container">
+        <div class="avatar-grid">
+          <article class="avatar-card">
+            <h2>Квадрат 1080×1080</h2>
+            <!-- Сама аватарка. Цю ж картинку бере кнопка «Завантажити PNG».
+                 Вона вбудована прямо в сторінку, бо так PNG можна зробити
+                 навіть зі сторінки, відкритої подвійним кліком.
+                 ЯКЩО МІНЯЄШ АВАТАРКУ — онови і assets/social/tiktok-avatar.svg (там та сама картинка). -->
+            <div class="avatar-square">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080" id="avatar-svg" role="img" aria-label="Аватарка Second Visuals">
+                <defs>
+                    <!-- Градієнт S: від глибокого м'ятного (знизу) до яскравого (вгорі) -->
+                    <linearGradient id="av-s" x1="0" y1="1" x2=".6" y2="0">
+                      <stop offset="0" stop-color="#2A9C87"/>
+                      <stop offset="1" stop-color="#5EE6C8"/>
+                    </linearGradient>
+                    <!-- Градієнт V: м'ятний, до кінчика світлішає -->
+                    <linearGradient id="av-v" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#38B49C"/>
+                      <stop offset=".55" stop-color="#5EE6C8"/>
+                      <stop offset="1" stop-color="#B8F4E6"/>
+                    </linearGradient>
+                    <!-- Світіння навколо знака -->
+                    <filter id="av-glow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="4.5"/>
+                    </filter>
+                  </defs>
+                <!-- Фон -->
+                <rect width="1080" height="1080" fill="#15111F"/>
+                <!-- Знак SV з logo-4.svg, збільшений і по центру -->
+                <g transform="translate(161.25 176.25) scale(7.5)">
+                  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Світіння: ті самі лінії, розмиті -->
+                    <g filter="url(#av-glow)" opacity=".5" stroke="#5EE6C8" stroke-width="11">
+                      <path d="M52 25 C45 14 19 15 19 30 C19 46 51 42 51 61 C51 79 25 84 12 71"/>
+                      <path d="M43 32 C50 50 54 63 59 75 C65 58 74 36 89 17"/>
+                    </g>
+                
+                    <!-- S -->
+                    <path d="M52 25 C45 14 19 15 19 30 C19 46 51 42 51 61 C51 79 25 84 12 71" stroke="url(#av-s)" stroke-width="11"/>
+                    <!-- Відблиск на верхній дузі S -->
+                    <path d="M44 20 C36 16 25 18 23 27" stroke="#F3E9E1" stroke-opacity=".4" stroke-width="2.5"/>
+                
+                    <!-- Тінь під V: відділяє V від S там, де стрічки перетинаються -->
+                    <path d="M43 32 C50 50 54 63 59 75" stroke="#15111F" stroke-opacity=".75" stroke-width="16"/>
+                
+                    <!-- V -->
+                    <path d="M43 32 C50 50 54 63 59 75 C65 58 74 36 89 17" stroke="url(#av-v)" stroke-width="11"/>
+                    <!-- Відблиск уздовж правої гілки V -->
+                    <path d="M68 50 C73 39 79 30 86 22" stroke="#F3E9E1" stroke-opacity=".5" stroke-width="2.5"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </article>
+
+          <article class="avatar-card">
+            <h2>Так буде в профілі</h2>
+            <div class="avatar-circle">
+              <img src="assets/social/tiktok-avatar.svg" alt="Аватарка в колі" width="1080" height="1080">
+            </div>
+          </article>
+
+          <article class="avatar-card">
+            <h2>Малі розміри</h2>
+            <p>Так аватарка виглядає в стрічці й коментарях.</p>
+            <div class="avatar-small">
+              <figure><img src="assets/social/tiktok-avatar.svg" alt="" width="96" height="96"><figcaption>96</figcaption></figure>
+              <figure><img src="assets/social/tiktok-avatar.svg" alt="" width="56" height="56"><figcaption>56</figcaption></figure>
+              <figure><img src="assets/social/tiktok-avatar.svg" alt="" width="32" height="32"><figcaption>32</figcaption></figure>
+            </div>
+          </article>
+        </div>
+
+        <div class="avatar-actions">
+          <button class="btn btn--primary" type="button" id="download-png">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14"/></svg>
+            Завантажити PNG
+          </button>
+          <p id="download-status" role="status" aria-live="polite">Файл: second-visuals-tiktok-avatar.png, 1080×1080</p>
+          <a class="more-link" href="index.html"><span aria-hidden="true">←</span> На головну</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /* Кнопка «Завантажити PNG»:
+       беремо вбудовану SVG-картинку, малюємо її на полотні 1080×1080
+       і зберігаємо як PNG (TikTok не приймає SVG). */
+    (function () {
+      "use strict";
+      const SIZE = 1080;
+      const button = document.getElementById("download-png");
+      const status = document.getElementById("download-status");
+
+      button.addEventListener("click", function () {
+        const svg = document.getElementById("avatar-svg");
+        const xml = new XMLSerializer().serializeToString(svg);
+        const svgUrl = URL.createObjectURL(new Blob([xml], { type: "image/svg+xml" }));
+        const img = new Image();
+
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          canvas.width = SIZE;
+          canvas.height = SIZE;
+          canvas.getContext("2d").drawImage(img, 0, 0, SIZE, SIZE);
+          URL.revokeObjectURL(svgUrl);
+
+          canvas.toBlob(function (blob) {
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "second-visuals-tiktok-avatar.png";
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(function () { URL.revokeObjectURL(link.href); }, 1000);
+            status.textContent = "Готово! Файл second-visuals-tiktok-avatar.png у папці «Завантаження».";
+          }, "image/png");
+        };
+
+        img.onerror = function () {
+          status.textContent = "Не вдалося зробити PNG у цьому браузері. Спробуй Chrome або Edge.";
+        };
+
+        img.src = svgUrl;
+      });
+    })();
+  </script>
+</body>
+</html>

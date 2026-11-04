@@ -46,7 +46,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  padding-block: 14px;
+  padding-block: 11px; /* менший відступ, щоб більший логотип не робив меню вищим */
   /* Напівпрозорий фон з розмиттям — меню "пливе" над сторінкою */
   background: rgba(21, 17, 31, 0.78);
   backdrop-filter: blur(14px);
@@ -85,7 +85,7 @@
   color: var(--color-text);
   font-family: var(--font-heading);
   font-weight: 900;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   letter-spacing: -0.01em;
 }
 
@@ -93,10 +93,31 @@
   opacity: 1;
 }
 
+/* Знак логотипу в меню: 52px на компі, 44px на телефоні.
+   Висота меню від цього не росте — вона й так ~74px через кнопки. */
 .logo img {
-  width: 36px;
-  height: 36px;
+  width: 52px;
+  height: 52px;
   border-radius: var(--radius-sm);
+}
+
+@media (max-width: 820px) {
+  .logo {
+    gap: 8px;
+    font-size: 1.15rem;
+  }
+
+  .logo img {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Дуже вузькі телефони: ховаємо напис біля знака, щоб усе вмістилось */
+@media (max-width: 340px) {
+  .logo__text {
+    display: none;
+  }
 }
 
 /* Список пунктів меню */
