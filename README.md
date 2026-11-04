@@ -23,7 +23,7 @@ js/
   support.js      — FAQ і форма підтримки
   pricing.js      — місце під майбутню оплату
 assets/
-  logo/           — варіанти логотипу (logo-1…4.svg)
+  logo/           — логотип (logo-4.svg: у меню і як іконка вкладки)
   icons/          — іконки Telegram, TikTok, Google, Microsoft
   images/         — картинки (зараз заглушки)
 ```
@@ -58,13 +58,11 @@ python -m http.server 8000
 
 Settings → Pages → Source: *Deploy from a branch* → гілка `main`, тека `/ (root)`.
 
-## Логотип: як поміняти варіант
+## Логотип
 
-Зараз на сайті стоїть `assets/logo/logo-4.svg`.
-Щоб поставити інший, у файлах `index.html`, `features.html`, `pricing.html`, `support.html`
-заміни `assets/logo/logo-4.svg` на інший, наприклад `assets/logo/logo-1.svg`.
-Це 2 місця в кожному файлі: іконка вкладки (`<link rel="icon">`) і логотип у меню.
-У VS Code: Ctrl+Shift+H → «Замінити в усіх файлах».
+Логотип — `assets/logo/logo-4.svg`. Він стоїть у меню і як іконка вкладки на всіх сторінках
+(2 місця в кожному з файлів `index.html`, `features.html`, `pricing.html`, `support.html`).
+Щоб замінити логотип, найпростіше перезаписати сам файл `logo-4.svg` новим.
 
 ## Вхід через Google
 
