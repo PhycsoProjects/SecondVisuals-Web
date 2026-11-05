@@ -58,9 +58,9 @@ python -m http.server 8000
 ## Кнопка «Завантажити»
 
 Усі кнопки «Завантажити» ведуть на
-`https://github.com/PhycsoProjects/SecondVisuals-Web/releases/latest/download/SecondVisuals-Windows.zip`
+`https://github.com/PhycsoProjects/SecondVisuals-Web/releases/latest/download/SecondVisuals-Setup.exe`
 — це файл з **останнього релізу** цього репозиторію. Щоб випустити нову версію лаунчера:
-запусти `build-exe.bat` у теці лаунчера і додай `build\SecondVisuals-Windows.zip` у новий реліз
+запусти `build-exe.bat` у теці лаунчера (спершу збільш у ньому `VER`) і додай `build\SecondVisuals-Setup.exe` у новий реліз
 (з тією самою назвою файлу). Правити сайт не треба.
 
 ## Публікація на GitHub Pages
