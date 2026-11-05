@@ -127,7 +127,7 @@
 
 .card:hover {
   transform: translateY(-4px);
-  border-color: rgba(94, 230, 200, 0.35);
+  border-color: rgba(var(--accent-rgb), 0.35);
 }
 
 .card h3 {
@@ -191,8 +191,9 @@
   color: var(--color-text);
 }
 
-/* М'ятна галочка в кружечку */
-.check-list li::before {
+/* Галочка в кружечку кольору акценту (малюється маскою — колір береться з теми) */
+.check-list li::before,
+.check-list li::after {
   content: "";
   position: absolute;
   left: 0;
@@ -200,9 +201,16 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--color-accent-soft)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' fill='none' stroke='%235EE6C8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-    center / 20px no-repeat;
+}
+
+.check-list li::before {
+  background: var(--color-accent-soft);
+}
+
+.check-list li::after {
+  background: var(--color-accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 20px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 20px no-repeat;
 }
 
 /* Пункт, якого немає в тарифі (сірий, з рискою) */
@@ -211,9 +219,13 @@
 }
 
 .check-list li.is-off::before {
-  background: var(--color-surface-2)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6.5 10h7' fill='none' stroke='%23F3E9E1' stroke-opacity='.45' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E")
-    center / 20px no-repeat;
+  background: var(--color-surface-2);
+}
+
+.check-list li.is-off::after {
+  background: var(--color-text-faint);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6.5 10h7' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6.5 10h7' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 .pricing-center {
@@ -358,7 +370,7 @@
 
 /* Відкрите питання (атрибут open у <details>) */
 .faq__item[open] {
-  border-color: rgba(94, 230, 200, 0.4);
+  border-color: rgba(var(--accent-rgb), 0.4);
 }
 
 /* Рядок-питання (<summary>), по ньому клікають */
@@ -477,7 +489,7 @@
 /* Поле з помилкою (клас додає support.js) */
 .form__input.is-invalid,
 .form__textarea.is-invalid {
-  border-color: rgba(243, 233, 225, 0.6);
+  border-color: rgba(var(--text-rgb), 0.6);
   border-style: dashed;
 }
 
@@ -494,7 +506,7 @@
   padding: 16px 18px;
   border-radius: var(--radius-md);
   background: var(--color-accent-soft);
-  border: 1px solid rgba(94, 230, 200, 0.4);
+  border: 1px solid rgba(var(--accent-rgb), 0.4);
   color: var(--color-text);
   font-weight: 600;
 }
@@ -626,7 +638,7 @@
   padding: clamp(36px, 6vw, 64px);
   text-align: center;
   background: var(--color-surface);
-  border: 1px solid rgba(94, 230, 200, 0.3);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
   border-radius: var(--radius-lg);
 }
 
@@ -730,7 +742,32 @@
 }
 
 .account-btn.is-signed-in .account-btn__letter {
-  display: block;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/* Власне фото замість літери (кнопка в меню, вікно акаунта, налаштування) */
+.has-photo {
+  background-size: cover;
+  background-position: center;
+}
+
+.account-btn.is-signed-in:has(.has-photo) {
+  padding: 0;
+  overflow: hidden;
+}
+
+.auth-signed-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.auth-signed-actions .btn {
+  gap: 8px;
 }
 
 /* =========================================================
@@ -749,7 +786,7 @@
 
 /* Затемнений фон за вікном */
 .auth-dialog::backdrop {
-  background: rgba(21, 17, 31, 0.72);
+  background: rgba(var(--bg-rgb), 0.72);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
@@ -847,8 +884,8 @@
 
 /* Помилка у вікні входу */
 .auth-dialog__msg.is-error {
-  background: rgba(243, 233, 225, 0.08);
-  border: 1px dashed rgba(243, 233, 225, 0.4);
+  background: rgba(var(--text-rgb), 0.08);
+  border: 1px dashed rgba(var(--text-rgb), 0.4);
 }
 
 .auth-form .auth-dialog__msg {
@@ -996,7 +1033,7 @@
 
 .auth-badge--premium {
   background: var(--color-accent-soft);
-  border-color: rgba(94, 230, 200, 0.35);
+  border-color: rgba(var(--accent-rgb), 0.35);
   color: var(--color-accent);
 }
 
@@ -1058,8 +1095,8 @@
 }
 
 .notice--error {
-  background: rgba(243, 233, 225, 0.06);
-  border: 1px dashed rgba(243, 233, 225, 0.45);
+  background: rgba(var(--text-rgb), 0.06);
+  border: 1px dashed rgba(var(--text-rgb), 0.45);
 }
 
 .notice--error::before {
@@ -1143,7 +1180,7 @@
 
 .ticket-msg--admin {
   background: var(--color-accent-soft);
-  border: 1px solid rgba(94, 230, 200, 0.3);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
 }
 
 .ticket-msg__who {
@@ -1176,4 +1213,10 @@
 .ticket__closed {
   font-size: 0.9rem;
   color: var(--color-text-muted);
+}
+
+/* Світла тема: іконки Telegram і TikTok намальовані світлим кольором — затемнюємо */
+:root[data-theme="light"] img[src$="telegram.svg"],
+:root[data-theme="light"] img[src$="tiktok.svg"] {
+  filter: brightness(0.15);
 }

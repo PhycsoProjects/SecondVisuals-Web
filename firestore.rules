@@ -47,17 +47,41 @@ service cloud.firestore {
         && request.resource.data.lastLoginAt == request.time;
 
       allow update: if
-        // сам користувач: лише email / ім'я / спосіб входу / час входу
+        // сам користувач: email / нік / спосіб входу / час входу / налаштування теми
         (signedIn() && request.auth.uid == uid
-          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['email', 'name', 'provider', 'lastLoginAt'])
+          && changed().hasOnly(['email', 'name', 'provider', 'lastLoginAt', 'settings'])
           && request.resource.data.email == request.auth.token.email.lower()
-          && request.resource.data.lastLoginAt == request.time)
+          && (!('lastLoginAt' in changed()) || request.resource.data.lastLoginAt == request.time)
+          && str(request.resource.data.get('name', ''), 0, 40)
+          && (!('settings' in changed()) || validSettings(request.resource.data.settings)))
         // адмін: лише преміум і блокування; профіль власника чіпати не можна
         || (isAdmin()
-          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['premium', 'banned'])
+          && changed().hasOnly(['premium', 'banned'])
           && (resource.data.email != 'secondvisuals2@gmail.com' || isOwner()));
 
-      allow delete: if false;
+      // Видалити свій акаунт може кожен, крім власника сайту
+      allow delete: if signedIn() && request.auth.uid == uid && !isOwner();
+
+      function changed() { return request.resource.data.diff(resource.data).affectedKeys(); }
+      function validSettings(s) {
+        return s is map && s.keys().hasOnly(['theme', 'accent'])
+          && s.get('theme', 'dark') in ['dark', 'light', 'system']
+          && s.get('accent', '#5EE6C8').matches('^#[0-9A-Fa-f]{6}$');
+      }
+    }
+
+    // ---------- Аватари ----------
+    // Окремо від профілю, щоб список користувачів в адмінці не тягнув усі картинки.
+    // Невелика картинка (до ~45 КБ), закодована в рядок data:image/...
+    match /avatars/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['data', 'updatedAt'])
+        && request.resource.data.data is string
+        && request.resource.data.data.size() <= 60000
+        && request.resource.data.data.matches('^data:image/(webp|jpeg|png);base64,[A-Za-z0-9+/=]+$')
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if signedIn() && (request.auth.uid == uid || isAdmin());
     }
 
     // ---------- Адміни ----------

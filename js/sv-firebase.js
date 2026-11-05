@@ -43,7 +43,7 @@ export async function syncProfile(user) {
   const ref = F.doc(db, "users", user.uid);
   const base = {
     email: (user.email || "").toLowerCase(),
-    name: user.displayName || "",
+    name: (user.displayName || "").slice(0, 40),
     provider: providerOf(user),
     lastLoginAt: F.serverTimestamp(),
   };
@@ -112,9 +112,21 @@ export async function loadAccount(user) {
     console.warn("[account] profile", e);
   }
   const owner = isOwner(user);
+  let avatar = null;
+  try {
+    const a = await F.getDoc(F.doc(db, "avatars", user.uid));
+    avatar = a.exists() ? a.data().data : null;
+  } catch (e) {
+    console.warn("[account] avatar", e);
+  }
+  // Тема з профілю — на всіх пристроях однакова
+  if (profile && profile.settings && window.SVTheme) {
+    window.SVTheme.set({ mode: profile.settings.theme, accent: profile.settings.accent }, { silent: true });
+  }
   return {
     user,
     profile,
+    avatar,
     owner,
     admin: owner || (await isAdmin(user)),
     premium: premiumState(user, profile),
@@ -128,4 +140,20 @@ export function onAccount(cb) {
   return A.onAuthStateChanged(auth, async (user) => {
     cb(user ? await loadAccount(user) : null);
   });
+}
+
+/* ---------- Налаштування акаунта (settings.html) ---------- */
+export function saveSettings(user, settings) {
+  return F.updateDoc(F.doc(db, "users", user.uid), { settings: { theme: settings.mode, accent: settings.accent } });
+}
+
+// dataUrl — "data:image/webp;base64,…" або null, щоб прибрати фото
+export function saveAvatar(user, dataUrl) {
+  const ref = F.doc(db, "avatars", user.uid);
+  return dataUrl ? F.setDoc(ref, { data: dataUrl, updatedAt: F.serverTimestamp() }) : F.deleteDoc(ref);
+}
+
+// Повідомити всі частини сторінки (кнопка в меню, вікно акаунта), що профіль змінився
+export function notifyAccountChanged() {
+  document.dispatchEvent(new CustomEvent("sv:account-changed"));
 }

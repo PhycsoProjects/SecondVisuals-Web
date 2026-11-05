@@ -18,13 +18,13 @@
   /* Похідні відтінки сливового — для карток і блоків */
   --color-surface: #1D1729;       /* картка трохи світліша за фон */
   --color-surface-2: #261E36;     /* ще світліше — для наведення, полів форми */
-  --color-border: rgba(243, 233, 225, 0.10);  /* тонкі рамки */
+  --color-border: rgba(var(--text-rgb), 0.10);  /* тонкі рамки */
 
   /* Похідні відтінки тексту та акценту */
-  --color-text-muted: rgba(243, 233, 225, 0.68); /* другорядний текст */
-  --color-text-faint: rgba(243, 233, 225, 0.45); /* зовсім дрібні підписи */
-  --color-accent-soft: rgba(94, 230, 200, 0.12); /* м'ятна підкладка */
-  --color-accent-glow: rgba(94, 230, 200, 0.28); /* м'ятне світіння */
+  --color-text-muted: rgba(var(--text-rgb), 0.68); /* другорядний текст */
+  --color-text-faint: rgba(var(--text-rgb), 0.45); /* зовсім дрібні підписи */
+  --color-accent-soft: rgba(var(--accent-rgb), 0.12); /* м'ятна підкладка */
+  --color-accent-glow: rgba(var(--accent-rgb), 0.28); /* м'ятне світіння */
   --color-on-accent: #15111F;     /* текст НА м'ятній кнопці (темний) */
 
   /* Шрифти
@@ -48,6 +48,33 @@
   /* Тіні та анімації */
   --shadow-card: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
   --transition: 0.2s ease;
+
+  /* Ті самі кольори як числа R, G, B — щоб робити напівпрозорі відтінки:
+     rgba(var(--accent-rgb), 0.3). Акцент (колір і текст на ньому) підставляє
+     js/theme.js — людина може обрати свій у налаштуваннях. */
+  --accent-rgb: 94, 230, 200;
+  --text-rgb: 243, 233, 225;
+  --bg-rgb: 21, 17, 31;
+  color-scheme: dark;
+}
+
+/* ---------- Світла тема (вмикається в налаштуваннях акаунта) ----------
+   Той самий настрій, але навпаки: теплий світлий фон, темно-сливовий текст.
+   Акцент для світлої теми js/theme.js робить темнішим, щоб текст читався. */
+:root[data-theme="light"] {
+  --color-bg: #F7F3EE;
+  --color-text: #1E1729;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #EEE7F0;
+  --text-rgb: 30, 23, 41;
+  --bg-rgb: 247, 243, 238;
+  --color-border: rgba(var(--text-rgb), 0.12);
+  --color-text-muted: rgba(var(--text-rgb), 0.72);
+  --color-text-faint: rgba(var(--text-rgb), 0.5);
+  --color-accent-soft: rgba(var(--accent-rgb), 0.14);
+  --color-accent-glow: rgba(var(--accent-rgb), 0.3);
+  --shadow-card: 0 20px 50px -24px rgba(30, 23, 41, 0.25);
+  color-scheme: light;
 }
 
 /* ---------- Скидання стандартних стилів браузера ---------- */
@@ -73,7 +100,7 @@ body {
   /* М'яке м'ятне світіння зверху сторінки — декоративно */
   background-image: radial-gradient(
     ellipse 80% 50% at 50% -10%,
-    rgba(94, 230, 200, 0.10),
+    rgba(var(--accent-rgb), 0.10),
     transparent 70%
   );
   background-repeat: no-repeat;

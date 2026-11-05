@@ -48,7 +48,7 @@
   z-index: 50;
   padding-block: 11px; /* менший відступ, щоб більший логотип не робив меню вищим */
   /* Напівпрозорий фон з розмиттям — меню "пливе" над сторінкою */
-  background: rgba(21, 17, 31, 0.78);
+  background: rgba(var(--bg-rgb), 0.78);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);

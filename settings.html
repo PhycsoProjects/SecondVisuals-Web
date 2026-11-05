@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Тема і колір акценту — до стилів, щоб не блимало (js/theme.js) -->
+  <script src="js/theme.js"></script>
+  <title>Налаштування — Second Visuals</title>
+  <meta name="description" content="Налаштування акаунта Second Visuals: профіль, фото, нік, тема, пароль.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#15111F">
+  <link rel="icon" href="assets/logo/logo-4.svg" type="image/svg+xml">
+
+  <!-- Шрифти з Google Fonts: Nunito (заголовки) і Manrope (текст) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти до вмісту</a>
+
+  <!-- ===================== ВЕРХНЄ МЕНЮ (однакове на всіх сторінках) ===================== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html" aria-label="Second Visuals — на головну">
+        <img src="assets/logo/logo-4.svg" alt="" width="52" height="52">
+        <span class="logo__text">Second Visuals</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Відкрити меню">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="nav" id="site-nav" aria-label="Головне меню">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html">Головна</a></li>
+          <li><a class="nav__link" href="features.html">Можливості</a></li>
+          <li><a class="nav__link" href="pricing.html">Тарифи</a></li>
+          <li><a class="nav__link" href="support.html">Підтримка</a></li>
+          <li class="nav__cta"><a class="btn btn--primary btn--sm" href="https://github.com/PhycsoProjects/SecondVisuals-Web/releases/latest/download/SecondVisuals-Setup.exe">Завантажити</a></li>
+        </ul>
+      </nav>
+
+      <!-- Кнопка акаунта: відкриває вікно «Вхід / Реєстрація» (логіка в js/auth.js) -->
+      <button class="account-btn" type="button" data-auth-open aria-haspopup="dialog" aria-label="Вхід / Реєстрація">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg>
+        <span class="account-btn__letter"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section section--tight-top">
+      <div class="container settings">
+        <div class="settings-head">
+          <h1>Налаштування</h1>
+          <p>Профіль, вигляд сайту і безпека акаунта.</p>
+        </div>
+
+        <div class="settings-layout">
+          <!-- Розділи (на телефоні — смуга з прокруткою) -->
+          <nav class="settings-nav" aria-label="Розділи налаштувань">
+            <a href="#profile" data-needs-account>Профіль</a>
+            <a href="#appearance">Вигляд</a>
+            <a href="#security" data-needs-account>Безпека</a>
+            <a href="#account" data-needs-account>Акаунт</a>
+          </nav>
+
+          <div class="settings-body">
+            <!-- Гість: пропонуємо увійти (тема працює і без акаунта) -->
+            <div class="panel settings-card" data-guest hidden>
+              <h2>Увійди в акаунт</h2>
+              <p>Щоб змінити нік, фото чи пароль, увійди. Тему й колір можна обрати й без акаунта — нижче.</p>
+              <button class="btn btn--primary btn--sm" type="button" data-auth-open>Увійти</button>
+            </div>
+
+            <!-- ===== ПРОФІЛЬ ===== -->
+            <section class="panel settings-card" id="profile" data-needs-account hidden>
+              <h2>Профіль</h2>
+              <div class="settings-avatar-row">
+                <span class="settings-avatar" data-avatar aria-hidden="true"></span>
+                <div class="settings-avatar-actions">
+                  <div class="settings-buttons">
+                    <button class="btn btn--primary btn--sm" type="button" data-avatar-pick>Завантажити фото</button>
+                    <button class="btn btn--ghost btn--sm" type="button" data-avatar-remove hidden>Прибрати фото</button>
+                  </div>
+                  <p class="form__hint">JPG, PNG або WebP. Обріжемо до квадрата. Без фото — перша літера ніка.</p>
+                  <input type="file" accept="image/png,image/jpeg,image/webp" data-avatar-file hidden>
+                </div>
+              </div>
+
+              <form class="settings-form" data-nick-form novalidate>
+                <div class="form__field">
+                  <label class="form__label" for="settings-nick">Нік</label>
+                  <input class="form__input" type="text" id="settings-nick" maxlength="24" autocomplete="nickname" required>
+                  <p class="form__hint">Від 2 до 24 символів. Його видно в акаунті та в підтримці.</p>
+                </div>
+                <button class="btn btn--primary btn--sm" type="submit">Зберегти нік</button>
+              </form>
+
+              <dl class="settings-facts">
+                <div><dt>Email</dt><dd data-fact="email"></dd></div>
+                <div><dt>Вхід через</dt><dd data-fact="provider"></dd></div>
+                <div><dt>Зареєстрований</dt><dd data-fact="created"></dd></div>
+                <div><dt>Тариф</dt><dd data-fact="plan"></dd></div>
+              </dl>
+            </section>
+
+            <!-- ===== ВИГЛЯД ===== -->
+            <section class="panel settings-card" id="appearance">
+              <h2>Вигляд</h2>
+              <p class="settings-sub" data-theme-sync>Зберігається в цьому браузері.</p>
+
+              <h3 class="settings-h3">Тема</h3>
+              <div class="theme-options" role="radiogroup" aria-label="Тема">
+                <label class="theme-option">
+                  <input type="radio" name="theme-mode" value="dark">
+                  <span class="theme-option__preview theme-option__preview--dark" aria-hidden="true"><i></i><b></b><b></b></span>
+                  <span class="theme-option__name">Темна</span>
+                </label>
+                <label class="theme-option">
+                  <input type="radio" name="theme-mode" value="light">
+                  <span class="theme-option__preview theme-option__preview--light" aria-hidden="true"><i></i><b></b><b></b></span>
+                  <span class="theme-option__name">Світла</span>
+                </label>
+                <label class="theme-option">
+                  <input type="radio" name="theme-mode" value="system">
+                  <span class="theme-option__preview theme-option__preview--system" aria-hidden="true"><i></i><b></b><b></b></span>
+                  <span class="theme-option__name">Як у системі</span>
+                </label>
+              </div>
+
+              <h3 class="settings-h3">Колір акценту</h3>
+              <div class="accent-options" role="radiogroup" aria-label="Колір акценту" data-accents></div>
+              <div class="accent-custom">
+                <label class="accent-custom__label">
+                  <input type="color" data-accent-custom aria-label="Свій колір">
+                  <span>Свій колір</span>
+                </label>
+                <button class="auth-link" type="button" data-accent-reset>Повернути м'ятний</button>
+              </div>
+              <p class="form__hint" data-accent-note hidden></p>
+
+              <div class="theme-sample" aria-hidden="true">
+                <span class="eyebrow">Приклад</span>
+                <p>Так виглядатимуть <a href="#appearance">посилання</a> і кнопки.</p>
+                <span class="btn btn--primary btn--sm">Кнопка</span>
+                <span class="btn btn--ghost btn--sm">Друга</span>
+              </div>
+            </section>
+
+            <!-- ===== БЕЗПЕКА ===== -->
+            <section class="panel settings-card" id="security" data-needs-account hidden>
+              <h2>Безпека</h2>
+
+              <div data-oauth-note hidden>
+                <p class="settings-sub">Ти входиш через <strong data-oauth-name></strong>. Пароль і пошта керуються там, тут їх змінювати не потрібно.</p>
+              </div>
+
+              <div data-password-only hidden>
+                <h3 class="settings-h3">Змінити пароль</h3>
+                <form class="settings-form" data-password-form novalidate>
+                  <div class="form__field">
+                    <label class="form__label" for="pw-current">Поточний пароль</label>
+                    <input class="form__input" type="password" id="pw-current" autocomplete="current-password" required>
+                  </div>
+                  <div class="form__field">
+                    <label class="form__label" for="pw-new">Новий пароль</label>
+                    <input class="form__input" type="password" id="pw-new" autocomplete="new-password" minlength="8" required>
+                  </div>
+                  <div class="form__field">
+                    <label class="form__label" for="pw-repeat">Новий пароль ще раз</label>
+                    <input class="form__input" type="password" id="pw-repeat" autocomplete="new-password" minlength="8" required>
+                  </div>
+                  <div class="settings-buttons">
+                    <button class="btn btn--primary btn--sm" type="submit">Змінити пароль</button>
+                    <button class="auth-link" type="button" data-pw-reset>Не пам'ятаю поточний</button>
+                  </div>
+                </form>
+
+                <h3 class="settings-h3">Змінити email</h3>
+                <form class="settings-form" data-email-form novalidate>
+                  <div class="form__field">
+                    <label class="form__label" for="email-new">Новий email</label>
+                    <input class="form__input" type="email" id="email-new" autocomplete="email" inputmode="email" required>
+                  </div>
+                  <div class="form__field">
+                    <label class="form__label" for="email-pw">Поточний пароль</label>
+                    <input class="form__input" type="password" id="email-pw" autocomplete="current-password" required>
+                  </div>
+                  <button class="btn btn--primary btn--sm" type="submit">Надіслати лист на новий email</button>
+                  <p class="form__hint">Адреса зміниться, коли ти відкриєш посилання з листа.</p>
+                </form>
+              </div>
+            </section>
+
+            <!-- ===== АКАУНТ ===== -->
+            <section class="panel settings-card" id="account" data-needs-account hidden>
+              <h2>Акаунт</h2>
+              <div class="settings-row">
+                <div>
+                  <strong>Вийти з акаунта</strong>
+                  <p class="settings-sub">На цьому пристрої.</p>
+                </div>
+                <button class="btn btn--ghost btn--sm" type="button" data-logout>Вийти</button>
+              </div>
+              <div class="settings-row settings-row--danger" data-delete-row>
+                <div>
+                  <strong>Видалити акаунт</strong>
+                  <p class="settings-sub">Нік, фото й налаштування буде видалено назавжди. Преміум теж зникне.</p>
+                </div>
+                <button class="btn btn--ghost btn--sm settings-danger" type="button" data-delete>Видалити</button>
+              </div>
+            </section>
+
+            <p class="settings-toast" role="status" aria-live="polite" data-toast hidden></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Підтвердження видалення акаунта -->
+  <dialog class="auth-dialog" data-delete-dialog>
+    <form method="dialog" class="settings-form" data-delete-form>
+      <h2 class="auth-dialog__title">Видалити акаунт?</h2>
+      <p class="auth-dialog__text">Цю дію не можна скасувати. Щоб підтвердити, введи <strong>ВИДАЛИТИ</strong><span data-delete-pw-hint> і свій пароль</span>.</p>
+      <div class="form__field">
+        <label class="form__label" for="delete-word">Слово для підтвердження</label>
+        <input class="form__input" type="text" id="delete-word" autocomplete="off">
+      </div>
+      <div class="form__field" data-delete-pw>
+        <label class="form__label" for="delete-pw">Пароль</label>
+        <input class="form__input" type="password" id="delete-pw" autocomplete="current-password">
+      </div>
+      <p class="auth-dialog__msg is-error" data-delete-msg hidden></p>
+      <div class="settings-buttons settings-buttons--end">
+        <button class="btn btn--ghost btn--sm" value="cancel" formnovalidate>Скасувати</button>
+        <button class="btn btn--primary btn--sm settings-danger-fill" type="submit" value="delete">Видалити назавжди</button>
+      </div>
+    </form>
+  </dialog>
+
+
+  <!-- ===================== НИЗ СТОРІНКИ (однаковий на всіх сторінках) ===================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__copy">© <span data-year>2026</span> Second Visuals</p>
+      <ul class="socials">
+        <li><a class="social-btn" href="https://t.me/secondvisuals" target="_blank" rel="noopener" aria-label="Підпишись на Telegram" title="Підпишись на Telegram"><img src="assets/icons/telegram.svg" alt="" width="22" height="22"></a></li>
+        <li><a class="social-btn" href="https://www.tiktok.com/@secondvisuals" target="_blank" rel="noopener" aria-label="Підпишись на TikTok" title="Підпишись на TikTok"><img src="assets/icons/tiktok.svg" alt="" width="22" height="22"></a></li>
+      </ul>
+      <p class="site-footer__note">Second Visuals не є офіційним продуктом Minecraft. Не схвалено та не пов'язано з Mojang або Microsoft.</p>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script type="module" src="js/settings.js"></script>
+</body>
+</html>

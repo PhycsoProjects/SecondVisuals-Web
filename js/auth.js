@@ -105,7 +105,13 @@
         <button class="btn btn--primary btn--sm" type="button" data-auth-verified>Я вже підтвердив</button>
         <button class="auth-link" type="button" data-auth-resend>Надіслати лист ще раз</button>
       </div>
-      <button class="btn btn--ghost btn--block" type="button" data-auth-logout>Вийти</button>
+      <div class="auth-signed-actions">
+        <a class="btn btn--ghost btn--block" href="settings.html" data-auth-settings>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+          Налаштування
+        </a>
+        <button class="btn btn--ghost btn--block" type="button" data-auth-logout>Вийти</button>
+      </div>
     </div>
 
     <!-- Повідомлення: помилки, «лист надіслано» тощо -->
@@ -336,7 +342,7 @@
       const name = displayName(user);
       $("[data-auth-name]").textContent = name;
       $("[data-auth-email]").textContent = user.email || "";
-      $("[data-auth-letter]").textContent = name.charAt(0).toUpperCase();
+      paintAvatar($("[data-auth-letter]"), name, account && account.avatar);
       // Лист підтвердження потрібен лише для входу через email
       const needsVerify = !user.emailVerified && user.providerData.some((p) => p.providerId === "password");
       $("[data-auth-verify]").hidden = !needsVerify;
@@ -364,10 +370,20 @@
     openButtons.forEach((btn) => {
       btn.classList.toggle("is-signed-in", !!user);
       const letter = btn.querySelector(".account-btn__letter");
-      if (letter) letter.textContent = user ? displayName(user).charAt(0).toUpperCase() : "";
+      if (letter) paintAvatar(letter, user ? displayName(user) : "", user && account && account.avatar);
       btn.setAttribute("aria-label", user ? "Акаунт: " + displayName(user) : "Вхід в акаунт");
     });
   }
+
+  /* Аватар: власне фото, а поки його немає — перша літера ніка на кольорі акценту */
+  function paintAvatar(el, name, photo) {
+    el.textContent = photo ? "" : (name || "").charAt(0).toUpperCase();
+    el.style.backgroundImage = photo ? "url(\"" + photo + "\")" : "";
+    el.classList.toggle("has-photo", !!photo);
+  }
+
+  // Налаштування змінили нік чи фото — оновлюємо кнопку й вікно без перезавантаження
+  document.addEventListener("sv:account-changed", () => { if (currentUser) reloadAccount(currentUser); });
 
   render();
 })();
