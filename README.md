@@ -10,6 +10,7 @@
 ```
 index.html        — головна
 features.html     — можливості
+admin.html        — адмін-панель (тільки для адмінів, прихована від пошуку)
 pricing.html      — тарифи (Безкоштовно / Преміум / Преміум на рік, оплата ще не підключена)
 support.html      — FAQ, форма підтримки, контакти
 css/
@@ -18,6 +19,9 @@ css/
   components.css  — кнопки, картки, форми, FAQ, тарифи
 js/
   config.js       — налаштування (ключі проєкту Firebase для акаунтів)
+  sv-firebase.js  — спільне підключення Firebase: профіль, ролі, преміум
+  admin.js        — адмін-панель
+  support-tickets.js — форма підтримки і «Мої звернення»
   auth.js         — вікно входу: email + пароль, Google, Microsoft (на всіх сторінках)
   main.js         — меню на телефоні, рік у футері (на всіх сторінках)
   support.js      — FAQ і форма підтримки
@@ -78,3 +82,15 @@ Settings → Pages → Source: *Deploy from a branch* → гілка `main`, т�
 - Вхід працює лише з доменів зі списку Authentication → Settings → Authorized domains
   (там уже є `localhost` і `phycsoprojects.github.io`). Новий домен сайту — додати туди.
 - Акаунти користувачів видно в Authentication → Users.
+
+## Адмін-панель (`admin.html`)
+
+Власник — `secondvisuals2@gmail.com`: довічний преміум, його не можна заблокувати,
+лише він додає й видаляє адмінів. Email записаний у двох місцях: `js/sv-firebase.js`
+(OWNER_EMAIL) і `firestore.rules` — міняти в обох.
+
+Розділи: Огляд, Користувачі (преміум, блокування, експорт CSV), Адміни, Підтримка
+(звернення й відповіді), Журнал дій (записи не змінюються й не видаляються).
+
+Дані — у Firestore (регіон europe-central2). **Захист — у `firestore.rules`**, а не в коді сайту:
+змінив правила у файлі — опублікуй їх у консолі Firebase → Firestore Database → Rules.

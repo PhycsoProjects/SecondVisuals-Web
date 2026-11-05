@@ -1,0 +1,571 @@
+/* =========================================================
+   admin.css — адмін-панель (admin.html)
+   Кольори й радіуси — ті самі змінні, що й на сайті (css/base.css).
+   ========================================================= */
+
+.admin-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+/* ---------- Верхня смуга ---------- */
+.admin-top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px var(--gutter);
+  background: rgba(21, 17, 31, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.admin-top__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-weight: 900;
+}
+
+.admin-top__brand img {
+  border-radius: 9px;
+}
+
+.admin-top__tag {
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: 0.8rem;
+}
+
+.admin-top__right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin-top__link {
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.admin-top__link:hover {
+  color: var(--color-accent);
+}
+
+/* ---------- Екран «перевіряємо доступ» ---------- */
+.admin-gate {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 72px);
+  padding: 24px var(--gutter);
+}
+
+.admin-gate__card {
+  max-width: 440px;
+  text-align: center;
+}
+
+.admin-gate__card h1 {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.admin-gate__card p {
+  margin-bottom: 20px;
+}
+
+/* ---------- Каркас ---------- */
+.admin {
+  width: 100%;
+  min-width: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px var(--gutter) 64px;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+  padding: 6px;
+  overflow-x: auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  scrollbar-width: none;
+}
+
+.admin-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.admin-tab:hover {
+  color: var(--color-text);
+}
+
+.admin-tab[aria-selected="true"] {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.admin-tab__count {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.admin-section .panel h2 {
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+}
+
+.admin-section .panel > p {
+  margin-bottom: 18px;
+}
+
+.admin-muted {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+}
+
+.admin-note {
+  margin: 8px 0 14px;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.admin-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Огляд ---------- */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.admin-stat {
+  display: grid;
+  gap: 4px;
+  padding: 20px 22px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.admin-stat__num {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+.admin-stat__label {
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.admin-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.admin-grid2 .panel + .panel {
+  margin-top: 0;
+}
+
+.admin-list {
+  display: grid;
+  gap: 4px;
+  list-style: none;
+}
+
+.admin-list li {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  overflow-wrap: anywhere;
+}
+
+.admin-list li.is-clickable {
+  cursor: pointer;
+}
+
+.admin-list li.is-clickable:hover {
+  background: var(--color-surface-2);
+}
+
+.admin-list--rows li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+}
+
+.admin-list--rows li > .btn {
+  margin-left: auto;
+}
+
+/* ---------- Панель інструментів ---------- */
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.admin-search {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.admin-section,
+.admin-support > * {
+  min-width: 0;
+}
+
+.admin-filter {
+  flex: 0 0 auto;
+  width: auto;
+  padding-right: 36px;
+}
+
+.admin-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.admin-chip {
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.admin-chip:hover {
+  color: var(--color-text);
+}
+
+.admin-chip.is-active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.admin-inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.admin-inline-form .form__input {
+  flex: 1 1 260px;
+}
+
+/* ---------- Таблиця користувачів ---------- */
+.admin-table-wrap {
+  position: relative; /* щоб прихований підпис «Дії» не вилазив за межі прокрутки */
+  overflow-x: auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.admin-table th {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.admin-table tr.is-banned td {
+  opacity: 0.6;
+}
+
+.admin-user {
+  display: grid;
+  gap: 2px;
+  white-space: normal;
+  min-width: 200px;
+}
+
+.admin-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.admin-tag {
+  padding: 2px 9px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.admin-tag--accent {
+  background: var(--color-accent-soft);
+  border-color: rgba(94, 230, 200, 0.35);
+  color: var(--color-accent);
+}
+
+.admin-tag--danger {
+  border-style: dashed;
+  border-color: rgba(243, 233, 225, 0.5);
+}
+
+.admin-premium {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+.admin-actions {
+  text-align: right;
+}
+
+.admin-actions .btn + .btn {
+  margin-left: 6px;
+}
+
+.admin-btn-danger:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+/* ---------- Підтримка ---------- */
+.admin-support {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) 1fr;
+  gap: 20px;
+  align-items: start;
+  margin-top: 12px;
+}
+
+.admin-tickets {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  max-height: 72vh;
+  overflow-y: auto;
+}
+
+.admin-ticket {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 10px;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.admin-ticket:hover,
+.admin-ticket:focus-visible {
+  border-color: rgba(94, 230, 200, 0.5);
+}
+
+.admin-ticket.is-active {
+  border-color: var(--color-accent);
+}
+
+.admin-ticket p {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.admin-ticket .admin-muted {
+  grid-column: 1 / -1;
+}
+
+.admin-ticket__status {
+  padding: 2px 9px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.admin-ticket__status--new {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.admin-thread {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-thread__head h2 {
+  margin-bottom: 4px;
+}
+
+.admin-thread__head a {
+  color: var(--color-accent);
+}
+
+.admin-thread__msgs {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-thread__actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 6px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---------- Вікна ---------- */
+.admin-dialog form {
+  display: grid;
+  gap: 16px;
+}
+
+.admin-dialog .auth-dialog__text {
+  margin-bottom: 0;
+  overflow-wrap: anywhere;
+}
+
+.admin-radios {
+  display: grid;
+  gap: 10px;
+  border: 0;
+  padding: 0;
+}
+
+.admin-radios label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-radios input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-accent);
+}
+
+.admin-until {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-until[hidden] {
+  display: none;
+}
+
+.admin-until .form__input {
+  color-scheme: dark;
+}
+
+.admin-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ---------- Сповіщення ---------- */
+.admin-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 50;
+  max-width: calc(100% - 32px);
+  padding: 14px 20px;
+  transform: translateX(-50%);
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 800;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.8);
+}
+
+.admin-toast.is-error {
+  background: var(--color-text);
+}
+
+/* ---------- Телефон і планшет ---------- */
+@media (max-width: 900px) {
+  .admin-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-grid2,
+  .admin-support {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-tickets {
+    max-height: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .admin-top__link {
+    display: none;
+  }
+
+  .admin-stat__num {
+    font-size: 1.8rem;
+  }
+}

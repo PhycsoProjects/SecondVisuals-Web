@@ -153,11 +153,17 @@
             <h2>Написати в підтримку</h2>
             <p>Опиши проблему або ідею — ми прочитаємо.</p>
 
-            <!-- Форма поки НІКУДИ не відправляє дані. Логіка — у js/support.js -->
+            <!-- Звернення зберігаються в базі, їх бачать адміни. Логіка — у js/support-tickets.js -->
             <form class="form" id="support-form" novalidate>
               <div class="form__field">
                 <label class="form__label" for="support-name">Ім'я</label>
                 <input class="form__input" type="text" id="support-name" name="name" placeholder="Як до тебе звертатись" autocomplete="name" maxlength="60" required>
+              </div>
+
+              <div class="form__field" data-guest-only>
+                <label class="form__label" for="support-email">Email для відповіді</label>
+                <input class="form__input" type="email" id="support-email" name="email" placeholder="you@example.com" autocomplete="email" inputmode="email" maxlength="120">
+                <p class="form__hint">Увійди в акаунт — і відповідь з’явиться прямо тут, на сайті.</p>
               </div>
 
               <div class="form__field">
@@ -167,9 +173,16 @@
 
               <button class="btn btn--primary" type="submit">Надіслати</button>
 
-              <!-- Сюди support.js виводить повідомлення після надсилання -->
+              <!-- Сюди support-tickets.js виводить повідомлення після надсилання -->
               <div id="support-status" role="status" aria-live="polite"></div>
             </form>
+          </div>
+
+          <!-- Мої звернення: видно лише в акаунті (support-tickets.js) -->
+          <div class="panel" id="my-tickets" hidden>
+            <h2>Мої звернення</h2>
+            <p>Тут з’являються відповіді підтримки. Можна дописати в те саме звернення.</p>
+            <div class="tickets" data-tickets></div>
           </div>
 
           <div class="panel">
@@ -215,5 +228,6 @@
   <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
   <script src="js/support.js"></script>
+  <script type="module" src="js/support-tickets.js"></script>
 </body>
 </html>

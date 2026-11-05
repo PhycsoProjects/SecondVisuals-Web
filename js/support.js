@@ -1,7 +1,6 @@
 /* =========================================================
    support.js — скрипти сторінки "Підтримка"
    - FAQ: плавне відкриття питань, відкрите лише одне за раз
-   - форма "Написати в підтримку": перевірка полів і повідомлення
    ========================================================= */
 
 (function () {
@@ -64,85 +63,5 @@
     });
   });
 
-  /* =========================================================
-     ФОРМА "Написати в підтримку"
-     Поки що нікуди не відправляє дані — тільки показує повідомлення.
-     ========================================================= */
-  const form = document.getElementById("support-form");
-  const status = document.getElementById("support-status");
-
-  if (!form) return;
-
-  // Показати помилку під полем
-  function showError(field, text) {
-    field.classList.add("is-invalid");
-    field.setAttribute("aria-invalid", "true");
-
-    let error = field.parentElement.querySelector(".form__error");
-    if (!error) {
-      error = document.createElement("p");
-      error.className = "form__error";
-      error.id = field.id + "-error";
-      field.parentElement.appendChild(error);
-      field.setAttribute("aria-describedby", error.id);
-    }
-    error.textContent = text;
-  }
-
-  // Прибрати помилку з поля
-  function clearError(field) {
-    field.classList.remove("is-invalid");
-    field.removeAttribute("aria-invalid");
-    const error = field.parentElement.querySelector(".form__error");
-    if (error) error.remove();
-    field.removeAttribute("aria-describedby");
-  }
-
-  // Коли користувач починає виправляти поле — ховаємо помилку
-  form.querySelectorAll("input, textarea").forEach(function (field) {
-    field.addEventListener("input", function () {
-      clearError(field);
-    });
-  });
-
-  form.addEventListener("submit", function (event) {
-    event.preventDefault(); // не перезавантажувати сторінку
-
-    const name = form.elements.name;
-    const message = form.elements.message;
-    let firstInvalid = null;
-
-    // Перевірка імені
-    if (name.value.trim().length < 2) {
-      showError(name, "Вкажи ім'я (хоча б 2 символи).");
-      firstInvalid = firstInvalid || name;
-    }
-
-    // Перевірка повідомлення
-    if (message.value.trim().length < 10) {
-      showError(message, "Напиши трохи детальніше (хоча б 10 символів).");
-      firstInvalid = firstInvalid || message;
-    }
-
-    if (firstInvalid) {
-      firstInvalid.focus();
-      return;
-    }
-
-    /* -------------------------------------------------------
-       ТУТ у майбутньому буде справжня відправка повідомлення.
-       Наприклад: fetch() на свій сервер, Telegram-бот через
-       сервер-посередник або сервіс форм (Formspree тощо).
-       Увага: токен Telegram-бота НЕ можна писати тут, у файлі
-       сайту — його побачить будь-хто. Тільки на сервері.
-       ------------------------------------------------------- */
-
-    status.innerHTML = "";
-    const notice = document.createElement("p");
-    notice.className = "notice";
-    notice.textContent = "Повідомлення збережено, ми скоро підключимо підтримку.";
-    status.appendChild(notice);
-
-    form.reset();
-  });
+  // Форма «Написати в підтримку» — у js/support-tickets.js
 })();

@@ -973,6 +973,41 @@
   overflow-wrap: anywhere;
 }
 
+/* Позначки «Преміум», «Адмін», «Власник» */
+.auth-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.auth-badges:not(:has(:not([hidden]))) {
+  display: none;
+}
+
+.auth-badge {
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.auth-badge--premium {
+  background: var(--color-accent-soft);
+  border-color: rgba(94, 230, 200, 0.35);
+  color: var(--color-accent);
+}
+
+.auth-admin-link {
+  margin-bottom: 10px;
+}
+
+[data-view="signed-in"] > .auth-dialog__msg[data-auth-banned] {
+  margin: 0 0 16px;
+}
+
 /* =========================================================
    БЛОК «ПІДПИШИСЬ НА НАС» (головна сторінка)
    ========================================================= */
@@ -1002,4 +1037,134 @@
   .subscribe__buttons {
     grid-template-columns: 1fr;
   }
+}
+
+/* =========================================================
+   ПІДТРИМКА: підказка, помилка, «Мої звернення» (support-tickets.js)
+   Ці ж стилі листування використовує адмін-панель.
+   ========================================================= */
+.form__hint {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.notice--error {
+  background: rgba(243, 233, 225, 0.06);
+  border: 1px dashed rgba(243, 233, 225, 0.45);
+}
+
+.notice--error::before {
+  content: "!";
+  background: var(--color-text);
+}
+
+.tickets {
+  display: grid;
+  gap: 10px;
+}
+
+.ticket {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-2);
+}
+
+.ticket__summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ticket__summary::-webkit-details-marker {
+  display: none;
+}
+
+.ticket__title {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.ticket__date {
+  grid-column: 1 / -1;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.ticket__status {
+  align-self: start;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.ticket__status--open {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.ticket__status--closed {
+  color: var(--color-text-faint);
+}
+
+.ticket__body {
+  display: grid;
+  gap: 10px;
+  padding: 0 16px 16px;
+}
+
+.ticket__thread {
+  display: grid;
+  gap: 10px;
+}
+
+.ticket-msg {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.ticket-msg--admin {
+  background: var(--color-accent-soft);
+  border: 1px solid rgba(94, 230, 200, 0.3);
+}
+
+.ticket-msg__who {
+  font-weight: 800;
+  font-size: 0.88rem;
+}
+
+.ticket-msg__time {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.ticket-msg__text {
+  grid-column: 1 / -1;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--color-text);
+}
+
+.ticket__reply {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+.ticket__reply .form__textarea {
+  min-height: 90px;
+}
+
+.ticket__closed {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
 }

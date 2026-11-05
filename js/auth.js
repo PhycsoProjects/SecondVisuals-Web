@@ -18,7 +18,7 @@
   const openButtons = document.querySelectorAll("[data-auth-open]");
   if (!openButtons.length) return;
 
-  const FIREBASE_VERSION = "10.14.1";
+  const SCRIPT_URL = document.currentScript && document.currentScript.src;
   const firebaseConfig = (window.SV_CONFIG || {}).firebase || {};
   const configured = !!(firebaseConfig.apiKey && firebaseConfig.authDomain);
 
@@ -90,6 +90,14 @@
           <p class="auth-profile__email" data-auth-email></p>
         </div>
       </div>
+      <div class="auth-badges">
+        <span class="auth-badge auth-badge--premium" data-auth-premium hidden></span>
+        <span class="auth-badge" data-auth-role hidden></span>
+      </div>
+      <p class="auth-dialog__msg is-error" data-auth-banned hidden>
+        Акаунт заблоковано адміністратором. Якщо це помилка — напиши нам у Telegram.
+      </p>
+      <a class="btn btn--primary btn--block auth-admin-link" href="admin.html" data-auth-admin hidden>Адмін-панель</a>
       <p class="auth-dialog__text" data-auth-verify hidden>
         Ми надіслали лист для підтвердження пошти. Не бачиш його — зазирни в «Спам».
         <button class="auth-link" type="button" data-auth-resend>Надіслати ще раз</button>
@@ -150,16 +158,22 @@
   let fb = null;          // модуль firebase-auth
   let auth = null;        // екземпляр Auth
   let currentUser = null;
+  let account = null;     // { profile, admin, owner, premium, banned } — див. sv-firebase.js
 
+  // Спільний модуль лежить поруч із цим файлом (js/sv-firebase.js)
+  const moduleUrl = new URL("sv-firebase.js", SCRIPT_URL || location.href).href;
   const ready = configured
-    ? Promise.all([
-        import(`https://www.gstatic.com/firebasejs/${FIREBASE_VERSION}/firebase-app.js`),
-        import(`https://www.gstatic.com/firebasejs/${FIREBASE_VERSION}/firebase-auth.js`),
-      ]).then(([appMod, authMod]) => {
-        fb = authMod;
-        auth = authMod.getAuth(appMod.initializeApp(firebaseConfig));
-        auth.languageCode = "uk"; // листи і вікна Google/Microsoft — українською
-        authMod.onAuthStateChanged(auth, (user) => { currentUser = user; render(); });
+    ? import(moduleUrl).then((sv) => {
+        fb = sv.A;
+        auth = sv.auth;
+        sv.A.onAuthStateChanged(auth, (user) => {
+          currentUser = user;
+          account = null;
+          render();
+          if (user) sv.loadAccount(user).then((acc) => {
+            if (currentUser === user) { account = acc; render(); }
+          });
+        });
       })
     : Promise.reject(new Error("not-configured"));
   ready.catch(() => {}); // помилку покажемо, коли людина натисне кнопку
@@ -299,6 +313,21 @@
       // Лист підтвердження потрібен лише для входу через email
       const needsVerify = !user.emailVerified && user.providerData.some((p) => p.providerId === "password");
       $("[data-auth-verify]").hidden = !needsVerify;
+
+      // Преміум, роль і блокування — коли профіль підвантажився з бази
+      const prem = account && account.premium;
+      const premEl = $("[data-auth-premium]");
+      premEl.hidden = !(prem && prem.active);
+      if (prem && prem.active) {
+        premEl.textContent = prem.forever
+          ? "Преміум · назавжди"
+          : "Преміум · до " + prem.until.toLocaleDateString("uk-UA");
+      }
+      const roleEl = $("[data-auth-role]");
+      roleEl.hidden = !(account && account.admin);
+      roleEl.textContent = account && account.owner ? "Власник" : "Адмін";
+      $("[data-auth-admin]").hidden = !(account && account.admin);
+      $("[data-auth-banned]").hidden = !(account && account.banned);
       form.reset();
       markInvalid(emailInput, false);
       markInvalid(passInput, false);

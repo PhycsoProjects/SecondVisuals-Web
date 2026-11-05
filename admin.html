@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Адмін-панель — Second Visuals</title>
+  <!-- Сторінка службова: не показувати в пошукових системах -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#15111F">
+  <link rel="icon" href="assets/logo/logo-4.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+
+  <header class="admin-top">
+    <a class="admin-top__brand" href="index.html">
+      <img src="assets/logo/logo-4.svg" alt="" width="34" height="34">
+      <span>Second Visuals</span>
+      <span class="admin-top__tag">Адмін</span>
+    </a>
+    <div class="admin-top__right">
+      <a class="admin-top__link" href="index.html">На сайт</a>
+      <!-- Кнопка акаунта: те саме вікно входу, що й на сайті (js/auth.js) -->
+      <button class="account-btn" type="button" data-auth-open aria-haspopup="dialog" aria-label="Вхід в акаунт">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+        <span class="account-btn__letter"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Поки перевіряємо доступ / немає доступу -->
+  <main class="admin-gate" data-gate>
+    <div class="panel admin-gate__card">
+      <h1 data-gate-title>Перевіряємо доступ…</h1>
+      <p data-gate-text></p>
+      <button class="btn btn--primary" type="button" data-auth-open data-gate-signin hidden>Увійти</button>
+    </div>
+  </main>
+
+  <!-- Сама панель (js/admin.js) -->
+  <div class="admin" data-admin hidden>
+    <nav class="admin-tabs" role="tablist" aria-label="Розділи">
+      <button class="admin-tab" role="tab" type="button" data-tab="overview" aria-selected="true">Огляд</button>
+      <button class="admin-tab" role="tab" type="button" data-tab="users" aria-selected="false">Користувачі</button>
+      <button class="admin-tab" role="tab" type="button" data-tab="admins" aria-selected="false">Адміни</button>
+      <button class="admin-tab" role="tab" type="button" data-tab="support" aria-selected="false">Підтримка <span class="admin-tab__count" data-new-count hidden></span></button>
+      <button class="admin-tab" role="tab" type="button" data-tab="log" aria-selected="false">Журнал дій</button>
+    </nav>
+
+    <!-- ===== ОГЛЯД ===== -->
+    <section class="admin-section" data-section="overview">
+      <div class="admin-stats">
+        <div class="admin-stat"><span class="admin-stat__num" data-stat="users">—</span><span class="admin-stat__label">Користувачів</span></div>
+        <div class="admin-stat"><span class="admin-stat__num" data-stat="premium">—</span><span class="admin-stat__label">З преміумом</span></div>
+        <div class="admin-stat"><span class="admin-stat__num" data-stat="new7">—</span><span class="admin-stat__label">Нових за 7 днів</span></div>
+        <div class="admin-stat"><span class="admin-stat__num" data-stat="tickets">—</span><span class="admin-stat__label">Нових звернень</span></div>
+      </div>
+      <div class="admin-grid2">
+        <div class="panel">
+          <h2>Нові користувачі</h2>
+          <ul class="admin-list" data-recent-users></ul>
+        </div>
+        <div class="panel">
+          <h2>Останні звернення</h2>
+          <ul class="admin-list" data-recent-tickets></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== КОРИСТУВАЧІ ===== -->
+    <section class="admin-section" data-section="users" hidden>
+      <div class="admin-toolbar">
+        <input class="form__input admin-search" type="search" placeholder="Пошук за email або ім'ям" aria-label="Пошук користувачів" data-user-search>
+        <select class="form__input admin-filter" aria-label="Фільтр" data-user-filter>
+          <option value="all">Усі</option>
+          <option value="premium">З преміумом</option>
+          <option value="free">Без преміуму</option>
+          <option value="banned">Заблоковані</option>
+        </select>
+        <button class="btn btn--ghost btn--sm" type="button" data-export>Експорт CSV</button>
+      </div>
+      <p class="admin-note">Тут з’являються всі, хто хоч раз входив на сайт.</p>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Користувач</th><th>Вхід через</th><th>Зареєстрований</th><th>Останній вхід</th><th>Преміум</th><th><span class="visually-hidden">Дії</span></th></tr></thead>
+          <tbody data-users></tbody>
+        </table>
+      </div>
+      <p class="admin-empty" data-users-empty hidden>Нікого не знайдено.</p>
+    </section>
+
+    <!-- ===== АДМІНИ ===== -->
+    <section class="admin-section" data-section="admins" hidden>
+      <div class="panel">
+        <h2>Адміністратори</h2>
+        <p>Адміни бачать користувачів і підтримку, видають преміум і блокують. Додавати й видаляти адмінів може тільки власник.</p>
+        <form class="admin-inline-form" data-admin-add hidden>
+          <input class="form__input" type="email" placeholder="email користувача" aria-label="Email нового адміна" required>
+          <button class="btn btn--primary btn--sm" type="submit">Додати адміна</button>
+        </form>
+        <p class="admin-note" data-admin-add-hint hidden>Людина має спершу хоч раз увійти на сайт під цим email.</p>
+        <ul class="admin-list admin-list--rows" data-admins></ul>
+      </div>
+    </section>
+
+    <!-- ===== ПІДТРИМКА ===== -->
+    <section class="admin-section" data-section="support" hidden>
+      <div class="admin-toolbar">
+        <div class="admin-chips" role="group" aria-label="Статус звернень" data-ticket-filter>
+          <button type="button" class="admin-chip is-active" data-status="new">Нові</button>
+          <button type="button" class="admin-chip" data-status="open">Відповіли</button>
+          <button type="button" class="admin-chip" data-status="closed">Закриті</button>
+          <button type="button" class="admin-chip" data-status="all">Усі</button>
+        </div>
+      </div>
+      <div class="admin-support">
+        <ul class="admin-tickets" data-tickets></ul>
+        <div class="panel admin-thread" data-thread>
+          <p class="admin-empty">Обери звернення зліва.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ЖУРНАЛ ===== -->
+    <section class="admin-section" data-section="log" hidden>
+      <div class="panel">
+        <h2>Журнал дій</h2>
+        <p>Хто з адмінів що змінив. Записи не можна змінити чи видалити.</p>
+        <ul class="admin-list admin-list--rows" data-log></ul>
+      </div>
+    </section>
+  </div>
+
+  <!-- Вікно «Преміум» -->
+  <dialog class="auth-dialog admin-dialog" data-premium-dialog>
+    <form method="dialog" data-premium-form>
+      <h2 class="auth-dialog__title">Преміум</h2>
+      <p class="auth-dialog__text" data-premium-who></p>
+      <fieldset class="admin-radios">
+        <legend class="visually-hidden">Тип преміуму</legend>
+        <label><input type="radio" name="kind" value="forever"> Назавжди</label>
+        <label><input type="radio" name="kind" value="until" checked> До дати</label>
+        <label><input type="radio" name="kind" value="none"> Без преміуму</label>
+      </fieldset>
+      <div class="admin-until" data-until-row>
+        <input class="form__input" type="date" name="until" aria-label="Дата закінчення">
+        <div class="admin-chips">
+          <button type="button" class="admin-chip" data-add-days="30">+30 днів</button>
+          <button type="button" class="admin-chip" data-add-days="90">+3 міс.</button>
+          <button type="button" class="admin-chip" data-add-days="365">+1 рік</button>
+        </div>
+      </div>
+      <div class="admin-dialog__actions">
+        <button class="btn btn--ghost" type="button" value="cancel" data-dialog-cancel>Скасувати</button>
+        <button class="btn btn--primary" type="submit" value="save">Зберегти</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Вікно підтвердження -->
+  <dialog class="auth-dialog admin-dialog" data-confirm-dialog>
+    <form method="dialog">
+      <h2 class="auth-dialog__title" data-confirm-title></h2>
+      <p class="auth-dialog__text" data-confirm-text></p>
+      <div class="admin-dialog__actions">
+        <button class="btn btn--ghost" value="no">Скасувати</button>
+        <button class="btn btn--primary" value="yes" data-confirm-yes>Так</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="admin-toast" role="status" aria-live="polite" data-toast hidden></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+rules_version = '2';
+
+// =========================================================
+// Правила безпеки бази Firestore для Second Visuals.
+// Саме вони, а не код сайту, вирішують, хто що може читати й змінювати.
+// Публікуються в консолі Firebase: Firestore Database → Rules.
+// Цей файл — копія того, що там опубліковано. Змінив тут — опублікуй там.
+// =========================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- Хто є хто ----------
+    function signedIn() { return request.auth != null; }
+
+    // Власник: той самий email, що й OWNER_EMAIL у js/sv-firebase.js
+    function isOwner() {
+      return signedIn()
+        && request.auth.token.email_verified == true
+        && request.auth.token.email.lower() == 'secondvisuals2@gmail.com';
+    }
+
+    function isAdmin() {
+      return isOwner()
+        || (signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)));
+    }
+
+    function myProfile() { return /databases/$(database)/documents/users/$(request.auth.uid); }
+
+    function isBanned() {
+      return signedIn() && !isOwner() && exists(myProfile())
+        && get(myProfile()).data.get('banned', null) != null;
+    }
+
+    function str(v, min, max) { return v is string && v.size() >= min && v.size() <= max; }
+
+    // ---------- Профілі користувачів ----------
+    // Людина сама створює й оновлює лише технічні поля свого профілю.
+    // Преміум і блокування змінюють тільки адміни.
+    match /users/{uid} {
+      allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);
+
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['email', 'name', 'provider', 'createdAt', 'lastLoginAt'])
+        && request.resource.data.email == request.auth.token.email.lower()
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.lastLoginAt == request.time;
+
+      allow update: if
+        // сам користувач: лише email / ім'я / спосіб входу / час входу
+        (signedIn() && request.auth.uid == uid
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['email', 'name', 'provider', 'lastLoginAt'])
+          && request.resource.data.email == request.auth.token.email.lower()
+          && request.resource.data.lastLoginAt == request.time)
+        // адмін: лише преміум і блокування; профіль власника чіпати не можна
+        || (isAdmin()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['premium', 'banned'])
+          && (resource.data.email != 'secondvisuals2@gmail.com' || isOwner()));
+
+      allow delete: if false;
+    }
+
+    // ---------- Адміни ----------
+    // Додавати й видаляти адмінів може тільки власник.
+    match /admins/{uid} {
+      allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);
+      allow create: if isOwner()
+        && request.resource.data.keys().hasOnly(['email', 'addedBy', 'addedAt'])
+        && request.resource.data.addedBy == request.auth.uid
+        && request.resource.data.addedAt == request.time;
+      allow delete: if isOwner();
+      allow update: if false;
+    }
+
+    // ---------- Підтримка ----------
+    // Звернення може надіслати будь-хто (і гість), але тільки в правильному вигляді.
+    // Бачить його автор (якщо був в акаунті) і адміни.
+    match /tickets/{ticketId} {
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+
+      allow create: if !isBanned()
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'name', 'message', 'status', 'createdAt', 'updatedAt', 'lastFrom'])
+        && request.resource.data.keys().hasAll(['uid', 'email', 'name', 'message', 'status', 'createdAt', 'updatedAt', 'lastFrom'])
+        && (request.resource.data.uid == null || (signedIn() && request.resource.data.uid == request.auth.uid))
+        && str(request.resource.data.email, 3, 120)
+        && str(request.resource.data.name, 2, 60)
+        && str(request.resource.data.message, 10, 2000)
+        && request.resource.data.status == 'new'
+        && request.resource.data.lastFrom == 'user'
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+
+      allow update: if
+        (isAdmin()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt', 'lastFrom'])
+          && request.resource.data.status in ['new', 'open', 'closed']
+          && request.resource.data.updatedAt == request.time)
+        // автор відповідає у своєму зверненні — воно знову стає «новим»
+        || (signedIn() && !isBanned() && resource.data.uid == request.auth.uid
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt', 'lastFrom'])
+          && request.resource.data.status == 'new'
+          && request.resource.data.lastFrom == 'user'
+          && request.resource.data.updatedAt == request.time);
+
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        function ticket() { return get(/databases/$(database)/documents/tickets/$(ticketId)).data; }
+
+        allow read: if isAdmin() || (signedIn() && ticket().uid == request.auth.uid);
+        allow create: if request.resource.data.keys().hasOnly(['from', 'uid', 'name', 'text', 'at'])
+          && str(request.resource.data.text, 1, 2000)
+          && request.resource.data.at == request.time
+          && request.resource.data.uid == request.auth.uid
+          && (
+            (isAdmin() && request.resource.data.from == 'admin')
+            || (signedIn() && !isBanned() && ticket().uid == request.auth.uid && request.resource.data.from == 'user')
+          );
+        allow update, delete: if false;
+      }
+    }
+
+    // ---------- Журнал дій адмінів ----------
+    // Запис додається, але ні змінити, ні видалити його не можна.
+    match /auditLog/{entryId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(['by', 'byEmail', 'action', 'target', 'details', 'at'])
+        && request.resource.data.by == request.auth.uid
+        && request.resource.data.at == request.time;
+      allow update, delete: if false;
+    }
+
+    // Усе інше — закрито
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

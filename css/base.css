@@ -172,6 +172,11 @@ button {
   border-radius: var(--radius-sm);
 }
 
+/* Атрибут hidden ховає завжди — навіть якщо клас елемента задає display (.btn, .form__field…) */
+[hidden] {
+  display: none !important;
+}
+
 /* Текст тільки для екранних читалок (невидимий на екрані) */
 .visually-hidden {
   position: absolute;
