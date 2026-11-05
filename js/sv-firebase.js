@@ -83,10 +83,28 @@ export async function isAdmin(user) {
   }
 }
 
+/* Людина підтвердила пошту за посиланням з листа (в іншій вкладці) —
+   а браузер ще пам'ятає старий стан. Питаємо сервер заново і оновлюємо токен,
+   бо саме з токена правила бази беруть email_verified. Повертає true, якщо змінилось. */
+export async function refreshVerification(user) {
+  if (!user || user.emailVerified || providerOf(user) !== "password") return false;
+  try {
+    await user.reload();
+    if (user.emailVerified) {
+      await user.getIdToken(true);
+      return true;
+    }
+  } catch (e) {
+    console.warn("[account] reload", e);
+  }
+  return false;
+}
+
 /* Усе про поточного користувача одним викликом:
    { user, profile, admin, owner, premium, banned } */
 export async function loadAccount(user) {
   if (!user) return null;
+  await refreshVerification(user);
   let profile = null;
   try {
     profile = await syncProfile(user);

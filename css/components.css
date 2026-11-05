@@ -1004,6 +1004,15 @@
   margin-bottom: 10px;
 }
 
+/* «Я вже підтвердив» + «Надіслати лист ще раз» */
+.auth-verify-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin: -12px 0 20px;
+}
+
 [data-view="signed-in"] > .auth-dialog__msg[data-auth-banned] {
   margin: 0 0 16px;
 }

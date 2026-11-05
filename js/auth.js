@@ -99,9 +99,12 @@
       </p>
       <a class="btn btn--primary btn--block auth-admin-link" href="admin.html" data-auth-admin hidden>Адмін-панель</a>
       <p class="auth-dialog__text" data-auth-verify hidden>
-        Ми надіслали лист для підтвердження пошти. Не бачиш його — зазирни в «Спам».
-        <button class="auth-link" type="button" data-auth-resend>Надіслати ще раз</button>
+        Підтверди пошту: ми надіслали лист із посиланням. Не бачиш його — зазирни в «Спам».
       </p>
+      <div class="auth-verify-actions" data-auth-verify-actions hidden>
+        <button class="btn btn--primary btn--sm" type="button" data-auth-verified>Я вже підтвердив</button>
+        <button class="auth-link" type="button" data-auth-resend>Надіслати лист ще раз</button>
+      </div>
       <button class="btn btn--ghost btn--block" type="button" data-auth-logout>Вийти</button>
     </div>
 
@@ -159,21 +162,44 @@
   let auth = null;        // екземпляр Auth
   let currentUser = null;
   let account = null;     // { profile, admin, owner, premium, banned } — див. sv-firebase.js
+  let svMod = null;       // сам модуль sv-firebase.js
+
+  function reloadAccount(user) {
+    return svMod.loadAccount(user).then((acc) => {
+      if (currentUser === user) { account = acc; render(); }
+    });
+  }
+
+  // Чи людина вже підтвердила пошту (питаємо сервер). manual — натиснула кнопку
+  let checking = false;
+  async function checkVerified(manual) {
+    const user = currentUser;
+    if (!svMod || !user || user.emailVerified || checking) return;
+    checking = true;
+    try {
+      const changed = await svMod.refreshVerification(user);
+      if (changed) { await reloadAccount(user); showMessage("Пошту підтверджено."); }
+      else if (manual) showMessage("Пошта ще не підтверджена. Відкрий посилання з листа і натисни ще раз.", "error");
+    } finally {
+      checking = false;
+    }
+  }
 
   // Спільний модуль лежить поруч із цим файлом (js/sv-firebase.js)
   const moduleUrl = new URL("sv-firebase.js", SCRIPT_URL || location.href).href;
   const ready = configured
     ? import(moduleUrl).then((sv) => {
+        svMod = sv;
         fb = sv.A;
         auth = sv.auth;
         sv.A.onAuthStateChanged(auth, (user) => {
           currentUser = user;
           account = null;
           render();
-          if (user) sv.loadAccount(user).then((acc) => {
-            if (currentUser === user) { account = acc; render(); }
-          });
+          if (user) reloadAccount(user);
         });
+        // Підтвердив пошту в іншій вкладці і повернувся — перевіряємо сам
+        window.addEventListener("focus", () => { checkVerified(false); });
       })
     : Promise.reject(new Error("not-configured"));
   ready.catch(() => {}); // помилку покажемо, коли людина натисне кнопку
@@ -282,7 +308,8 @@
     });
   });
 
-  /* ---------- Повторний лист підтвердження ---------- */
+  /* ---------- Підтвердження пошти ---------- */
+  $("[data-auth-verified]").addEventListener("click", () => { checkVerified(true); });
   $("[data-auth-resend]").addEventListener("click", () => {
     run(() => fb.sendEmailVerification(auth.currentUser).then(() => showMessage("Лист надіслано ще раз.")));
   });
@@ -313,6 +340,7 @@
       // Лист підтвердження потрібен лише для входу через email
       const needsVerify = !user.emailVerified && user.providerData.some((p) => p.providerId === "password");
       $("[data-auth-verify]").hidden = !needsVerify;
+      $("[data-auth-verify-actions]").hidden = !needsVerify;
 
       // Преміум, роль і блокування — коли профіль підвантажився з бази
       const prem = account && account.premium;
