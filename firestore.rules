@@ -17,7 +17,7 @@ service cloud.firestore {
     function isOwner() {
       return signedIn()
         && request.auth.token.email_verified == true
-        && request.auth.token.email.lower() == 'secondvisuals2@gmail.com';
+        && request.auth.token.email.lower() == 'labunetsmakar@gmail.com';
     }
 
     function isAdmin() {
@@ -55,7 +55,7 @@ service cloud.firestore {
         // адмін: лише преміум і блокування; профіль власника чіпати не можна
         || (isAdmin()
           && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['premium', 'banned'])
-          && (resource.data.email != 'secondvisuals2@gmail.com' || isOwner()));
+          && (resource.data.email != 'labunetsmakar@gmail.com' || isOwner()));
 
       allow delete: if false;
     }

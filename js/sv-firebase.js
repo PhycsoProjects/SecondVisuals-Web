@@ -19,7 +19,7 @@ if (!cfg.apiKey) throw new Error("not-configured");
 /* Власник сайту: довічний преміум, його не можна заблокувати чи
    зняти, тільки він додає й видаляє адмінів.
    Той самий email записаний у firestore.rules — міняти в обох місцях. */
-export const OWNER_EMAIL = "secondvisuals2@gmail.com";
+export const OWNER_EMAIL = "labunetsmakar@gmail.com";
 
 export const app = getApps()[0] || initializeApp(cfg);
 export const auth = A.getAuth(app);

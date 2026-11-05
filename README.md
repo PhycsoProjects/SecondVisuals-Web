@@ -85,7 +85,7 @@ Settings → Pages → Source: *Deploy from a branch* → гілка `main`, т�
 
 ## Адмін-панель (`admin.html`)
 
-Власник — `secondvisuals2@gmail.com`: довічний преміум, його не можна заблокувати,
+Власник — `labunetsmakar@gmail.com`: довічний преміум, його не можна заблокувати,
 лише він додає й видаляє адмінів. Email записаний у двох місцях: `js/sv-firebase.js`
 (OWNER_EMAIL) і `firestore.rules` — міняти в обох.
 
