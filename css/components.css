@@ -834,7 +834,7 @@
   transition: border-color var(--transition), transform var(--transition);
 }
 
-.provider-btn:hover:not(:disabled) {
+.provider-btn:hover {
   border-color: var(--color-accent);
   transform: translateY(-1px);
 }
@@ -845,27 +845,132 @@
   border-radius: 0;
 }
 
-/* Неактивна кнопка (Microsoft) — сіра */
-.provider-btn:disabled {
-  cursor: not-allowed;
-  color: var(--color-text-faint);
-  background: transparent;
+/* Помилка у вікні входу */
+.auth-dialog__msg.is-error {
+  background: rgba(243, 233, 225, 0.08);
+  border: 1px dashed rgba(243, 233, 225, 0.4);
 }
 
-.provider-btn:disabled img {
-  filter: grayscale(1);
-  opacity: 0.45;
+.auth-form .auth-dialog__msg {
+  margin-top: 0; /* відступ уже дає сітка форми */
 }
 
-/* Мітка «Скоро» */
-.provider-btn__soon {
-  margin-left: auto;
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  background: var(--color-surface-2);
-  color: var(--color-text-muted);
-  font-size: 0.78rem;
+/* Поки йде запит — кнопки неактивні */
+.auth-dialog.is-busy .btn,
+.auth-dialog.is-busy .provider-btn {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+/* Форма email + пароль */
+.auth-form {
+  display: grid;
+  gap: 16px;
+}
+
+.auth-form__label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.auth-link {
+  color: var(--color-accent);
+  font-size: 0.88rem;
   font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.auth-link:hover {
+  opacity: 0.8;
+}
+
+/* Поле пароля з кнопкою-«оком» */
+.auth-password {
+  position: relative;
+}
+
+.auth-password .form__input {
+  padding-right: 56px;
+}
+
+.auth-password__toggle {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  transform: translateY(-50%);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+}
+
+.auth-password__toggle:hover,
+.auth-password__toggle[aria-pressed="true"] {
+  color: var(--color-accent);
+}
+
+.auth-form__actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* Роздільник «або» */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0;
+  color: var(--color-text-faint);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* Профіль (коли увійшов) */
+.auth-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-right: 32px;
+}
+
+.auth-profile__avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+.auth-profile__name {
+  margin-bottom: 2px;
+  padding-right: 0;
+  overflow-wrap: anywhere;
+}
+
+.auth-profile__email {
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
 }
 
 /* =========================================================

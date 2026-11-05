@@ -17,8 +17,8 @@ css/
   layout.css      — меню, низ сторінки, сітки, секції
   components.css  — кнопки, картки, форми, FAQ, тарифи
 js/
-  config.js       — налаштування, які заповнюєш ти (Google Client ID)
-  auth.js         — вікно «Вхід / Реєстрація» (на всіх сторінках)
+  config.js       — налаштування (ключі проєкту Firebase для акаунтів)
+  auth.js         — вікно входу: email + пароль, Google, Microsoft (на всіх сторінках)
   main.js         — меню на телефоні, рік у футері (на всіх сторінках)
   support.js      — FAQ і форма підтримки
   pricing.js      — місце під майбутню оплату
@@ -45,7 +45,6 @@ python -m http.server 8000
 Усі місця позначені в коді коментарями `TODO` або `ЗАГЛУШКА`:
 
 - тексти й картинки на `features.html` (картинки клади в `assets/images/`);
-- Google Client ID — у `js/config.js` (там інструкція, де його взяти);
 - логотип — див. розділ нижче;
 - оплату — інструкція в коментарі в `js/pricing.js`;
 - відправку форми підтримки — коментар у `js/support.js`.
@@ -70,8 +69,12 @@ Settings → Pages → Source: *Deploy from a branch* → гілка `main`, т�
 (2 місця в кожному з файлів `index.html`, `features.html`, `pricing.html`, `support.html`).
 Щоб замінити логотип, найпростіше перезаписати сам файл `logo-4.svg` новим.
 
-## Вхід через Google
+## Акаунти (Firebase Authentication)
 
-Працює тільки з адреси http/https (GitHub Pages або `python -m http.server`),
-а не з файлу, відкритого подвійним кліком. Адресу сайту треба додати в
-«Authorized JavaScript origins» у Google Cloud Console.
+Акаунти зберігає Firebase, проєкт `second-visuals` (https://console.firebase.google.com).
+Увімкнені способи входу: email + пароль, Google. Microsoft — після реєстрації застосунку в Microsoft Entra.
+
+- Ключі проєкту — у `js/config.js`. Вони не секретні, так задумано у Firebase.
+- Вхід працює лише з доменів зі списку Authentication → Settings → Authorized domains
+  (там уже є `localhost` і `phycsoprojects.github.io`). Новий домен сайту — додати туди.
+- Акаунти користувачів видно в Authentication → Users.
