@@ -44,8 +44,6 @@ python -m http.server 8000
 
 Усі місця позначені в коді коментарями `TODO` або `ЗАГЛУШКА`:
 
-- посилання `#` на кнопках «Завантажити» — на файл лаунчера;
-- посилання `#` на Telegram і TikTok (у футері кожної сторінки та на `support.html`);
 - тексти й картинки на `features.html` (картинки клади в `assets/images/`);
 - Google Client ID — у `js/config.js` (там інструкція, де його взяти);
 - логотип — див. розділ нижче;
@@ -53,6 +51,14 @@ python -m http.server 8000
 - відправку форми підтримки — коментар у `js/support.js`.
 
 Кольори змінюються в одному місці — на початку `css/base.css`.
+
+## Кнопка «Завантажити»
+
+Усі кнопки «Завантажити» ведуть на
+`https://github.com/PhycsoProjects/SecondVisuals-Web/releases/latest/download/SecondVisuals-Windows.zip`
+— це файл з **останнього релізу** цього репозиторію. Щоб випустити нову версію лаунчера:
+запусти `build-exe.bat` у теці лаунчера і додай `build\SecondVisuals-Windows.zip` у новий реліз
+(з тією самою назвою файлу). Правити сайт не треба.
 
 ## Публікація на GitHub Pages
 
