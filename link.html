@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/theme.js"></script>
+  <title>Вхід у лаунчер — Second Visuals</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#15111F">
+  <link rel="icon" href="assets/logo/logo-4.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    /* Окрема маленька сторінка: картка по центру */
+    .link-page { display: grid; place-items: center; min-height: 100vh; padding: 24px 16px; }
+    .link-card { width: min(460px, 100%); text-align: center; }
+    .link-card .account-btn { display: none; }
+    .link-logo { width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 16px; }
+    .link-card h1 { font-size: 1.7rem; margin-bottom: 10px; }
+    .link-who { display: flex; align-items: center; gap: 14px; margin: 22px 0; padding: 14px 16px; border-radius: var(--radius-md); background: var(--color-surface-2); text-align: left; }
+    .link-who .auth-profile__avatar { width: 48px; height: 48px; font-size: 1.3rem; }
+    .link-who strong { display: block; overflow-wrap: anywhere; }
+    .link-who span { color: var(--color-text-muted); font-size: 0.9rem; overflow-wrap: anywhere; }
+    .link-actions { display: grid; gap: 10px; }
+    .link-note { margin-top: 16px; font-size: 0.85rem; color: var(--color-text-muted); }
+  </style>
+</head>
+<body>
+  <main class="link-page" id="main">
+    <div class="panel link-card">
+      <img class="link-logo" src="assets/logo/logo-4.svg" alt="" width="64" height="64">
+
+      <!-- Посилання зламане або застаріле -->
+      <div data-state="bad" hidden>
+        <h1>Посилання не працює</h1>
+        <p>Відкрий лаунчер Second Visuals і натисни «Увійти через сайт» ще раз.</p>
+      </div>
+
+      <!-- Ще не увійшов на сайті -->
+      <div data-state="signin" hidden>
+        <h1>Вхід у лаунчер</h1>
+        <p>Спершу увійди на сайті — тим акаунтом, з яким хочеш грати.</p>
+        <div class="link-actions" style="margin-top:22px">
+          <button class="btn btn--primary btn--block" type="button" data-auth-open>Увійти</button>
+        </div>
+      </div>
+
+      <!-- Увійшов: підтвердження -->
+      <div data-state="confirm" hidden>
+        <h1>Увійти в лаунчер?</h1>
+        <p>Лаунчер Second Visuals на цьому комп’ютері просить доступ до твого акаунта.</p>
+        <div class="link-who">
+          <span class="auth-profile__avatar" data-avatar aria-hidden="true"></span>
+          <div><strong data-nick></strong><span data-email></span></div>
+        </div>
+        <div class="link-actions">
+          <button class="btn btn--primary btn--block" type="button" data-confirm>Увійти в лаунчер</button>
+          <button class="btn btn--ghost btn--block" type="button" data-auth-open>Інший акаунт</button>
+        </div>
+        <p class="link-note">Натискай, лише якщо ти щойно натиснув «Увійти через сайт» у лаунчері. Пароль лаунчер не отримує.</p>
+      </div>
+
+      <!-- Готово -->
+      <div data-state="done" hidden>
+        <h1>Готово!</h1>
+        <p>Повертайся в лаунчер — ти вже в акаунті.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Кнопку акаунта auth.js шукає за атрибутом; тут вона прихована — вікно відкривають кнопки вище -->
+  <button class="account-btn" type="button" data-auth-open hidden><span class="account-btn__letter"></span></button>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script type="module" src="js/link.js"></script>
+</body>
+</html>

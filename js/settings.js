@@ -110,10 +110,12 @@ async function toAvatarDataUrl(file) {
   canvas.width = canvas.height = 160;
   const ctx = canvas.getContext("2d");
   ctx.imageSmoothingQuality = "high";
+  ctx.fillStyle = "#1D1729"; // прозорі PNG — на темному фоні, бо JPEG не має прозорості
+  ctx.fillRect(0, 0, 160, 160);
   ctx.drawImage(bmp, (bmp.width - side) / 2, (bmp.height - side) / 2, side, side, 0, 0, 160, 160);
-  for (const q of [0.85, 0.7, 0.55, 0.4]) {
-    let url = canvas.toDataURL("image/webp", q);
-    if (!url.startsWith("data:image/webp")) url = canvas.toDataURL("image/jpeg", q); // старі браузери без WebP
+  // JPEG, а не WebP: його вміє показувати й лаунчер (Java не читає WebP)
+  for (const q of [0.88, 0.75, 0.6, 0.45]) {
+    const url = canvas.toDataURL("image/jpeg", q);
     if (url.length <= 58000) return url;
   }
   throw new Error("too-big");
