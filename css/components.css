@@ -867,3 +867,34 @@
   font-size: 0.78rem;
   font-weight: 700;
 }
+
+/* =========================================================
+   БЛОК «ПІДПИШИСЬ НА НАС» (головна сторінка)
+   ========================================================= */
+.subscribe {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px 40px;
+}
+
+.subscribe__text p {
+  margin-bottom: 0;
+  color: var(--color-text-muted);
+}
+
+.subscribe__buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 760px) {
+  .subscribe {
+    grid-template-columns: 1fr;
+  }
+
+  .subscribe__buttons {
+    grid-template-columns: 1fr;
+  }
+}
