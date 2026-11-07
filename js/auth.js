@@ -4,7 +4,6 @@
    Акаунти зберігає Firebase Authentication (сервер Google):
    - email + пароль: «Увійти» або «Створити акаунт»
    - «Продовжити з Google»
-   - «Продовжити з Microsoft»
    Firebase сам перевіряє паролі, тримає сесію (після
    перезавантаження сторінки ти лишаєшся в акаунті) і надсилає
    листи для підтвердження пошти та скидання пароля.
@@ -73,10 +72,6 @@
         <button class="provider-btn" type="button" data-auth-provider="google">
           <img src="assets/icons/google.svg" alt="" width="22" height="22">
           Продовжити з Google
-        </button>
-        <button class="provider-btn" type="button" data-auth-provider="microsoft">
-          <img src="assets/icons/microsoft.svg" alt="" width="22" height="22">
-          Продовжити з Microsoft
         </button>
       </div>
     </div>
@@ -300,17 +295,10 @@
     );
   });
 
-  /* ---------- Google / Microsoft ---------- */
+  /* ---------- Google ---------- */
   dialog.querySelectorAll("[data-auth-provider]").forEach((btn) => {
     btn.addEventListener("click", () => {
-      run(() => {
-        const provider =
-          btn.dataset.authProvider === "google"
-            ? new fb.GoogleAuthProvider()
-            : new fb.OAuthProvider("microsoft.com");
-        if (btn.dataset.authProvider === "microsoft") provider.setCustomParameters({ prompt: "select_account" });
-        return fb.signInWithPopup(auth, provider);
-      });
+      run(() => fb.signInWithPopup(auth, new fb.GoogleAuthProvider()));
     });
   });
 

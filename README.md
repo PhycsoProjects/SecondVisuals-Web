@@ -22,7 +22,7 @@ js/
   sv-firebase.js  — спільне підключення Firebase: профіль, ролі, преміум
   admin.js        — адмін-панель
   support-tickets.js — форма підтримки і «Мої звернення»
-  auth.js         — вікно входу: email + пароль, Google, Microsoft (на всіх сторінках)
+  auth.js         — вікно входу: email + пароль, Google (на всіх сторінках)
   main.js         — меню на телефоні, рік у футері (на всіх сторінках)
   support.js      — FAQ і форма підтримки
   pricing.js      — місце під майбутню оплату
@@ -76,7 +76,7 @@ Settings → Pages → Source: *Deploy from a branch* → гілка `main`, т�
 ## Акаунти (Firebase Authentication)
 
 Акаунти зберігає Firebase, проєкт `second-visuals` (https://console.firebase.google.com).
-Увімкнені способи входу: email + пароль, Google. Microsoft — після реєстрації застосунку в Microsoft Entra.
+Увімкнені способи входу: email + пароль, Google. Кнопку Microsoft прибрано з сайту (07.11.2026).
 
 - Ключі проєкту — у `js/config.js`. Вони не секретні, так задумано у Firebase.
 - Вхід працює лише з доменів зі списку Authentication → Settings → Authorized domains
